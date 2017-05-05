@@ -1,5 +1,4 @@
-﻿using Assets.Resources.Main.TrinityClient;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +9,8 @@ public class LoginMain : MonoBehaviour {
     public GameObject notifyBox;
     Button LoginButton;
     Button QuitButton;
-    Button NotifyButton;
-    Text AccountName;
-    Text AccountPassword;
+    InputField AccountName;
+    InputField AccountPassword;
 
     // Use this for initialization
     void Start()
@@ -34,12 +32,21 @@ public class LoginMain : MonoBehaviour {
 
     void loginClick()
     {
-        AccountName = GameObject.Find("AccountNameText").GetComponent<Text>();
-        AccountPassword = GameObject.Find("AccountPassowrdText").GetComponent<Text>();
+        AccountName = GameObject.Find("AccountName").GetComponent<InputField>();
+        AccountPassword = GameObject.Find("AccountPassword").GetComponent<InputField>();
 
-        if (AccountName.text.Length < 3)
+        if (AccountName.text.Length < 3 || AccountPassword.text.Length < 3)
         {
             Global.showNotifyBox("Account Name Length Too Short", "Okay");
+        }
+        else
+        {
+
+            Global.showNotifyBox("Connecting...", "Cancel");
+
+            AuthSocket newLogin = new AuthSocket(AccountName.text, AccountPassword.text, Main.REALM_LIST_ADDRESS);
+            newLogin.Login();
+            Exchange.authClient = newLogin;
         }
     }
 
