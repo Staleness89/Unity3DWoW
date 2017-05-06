@@ -309,11 +309,12 @@ public class AuthSocket
                 }
                 else
                 {
-                    
+                    //Needs to go to RealmList
                 }
             }
             else
             {
+                //Needs to go to RealmList
             }
 
         }
@@ -324,33 +325,7 @@ public class AuthSocket
         }
 
     }
-
-    public void GoToCharList(Realm rl)
-    {
-        // labelMsg = "";
-        // ShowRealms = false;
-
-        if (mSocket != null)
-            mSocket.Close();
-
-
-        File.Create(Application.dataPath + "/RealmList.txt").Close();
-
-        using (StreamWriter w = File.AppendText(Application.dataPath + "/RealmList.txt"))
-        {//
-         //Log("REALM_LIST_ADDRESS " + REALM_LIST_ADDRESS, w);
-         //Log("LAST_KNOWN_REALM_LIST " + LAST_KNOWN_REALM_LIST, w);
-        }
-
-        // wClient = new World(mClient.mUsername, rl, mKey);
-        // wClient.Connect();
-    }
-
-    public static void Log(string logMessage, TextWriter w)
-    {
-        w.WriteLine(logMessage);
-    }
-
+    
     private bool CheckAvailableServerPort(string port)
     {
         string[] address = port.Split(':');

@@ -11,6 +11,10 @@ public class Global : MonoBehaviour
 {
     public static GameObject notify;
     static GameObject notifyBox;
+
+    public static GameObject realmListPrefab;
+    static GameObject realmList;
+    
     static Text NotifyText;
     static Button NotifyButton;
     static Text NotifyButtonText;
@@ -37,5 +41,20 @@ public class Global : MonoBehaviour
     public static void closeNotify()
     {
         Destroy(notifyBox);
+    }
+
+    public static void showRealmList(string error, string button)
+    {
+        if (!GameObject.Find("RealmList"))
+        {
+            realmList = Instantiate(realmListPrefab, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
+            realmList.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+            realmList.name = "RealmList";
+        }        
+    }
+
+    public static void closeRealmList()
+    {
+        Destroy(realmList);
     }
 }
