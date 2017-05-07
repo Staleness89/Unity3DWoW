@@ -309,12 +309,12 @@ public class AuthSocket
                 }
                 else
                 {
-                    //Needs to go to RealmList
+                    Global.showRealmList(Realmlist);
                 }
             }
             else
             {
-                //Needs to go to RealmList
+                Global.showRealmList(Realmlist);
             }
 
         }

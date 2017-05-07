@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LoginMain : MonoBehaviour {
 
     // Use this for initialization
-    public GameObject notifyBox;
+    
     Button LoginButton;
     Button QuitButton;
     InputField AccountName;
@@ -15,7 +15,6 @@ public class LoginMain : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Global.notify = notifyBox;
         LoginButton = GameObject.Find("loginButton").GetComponent<Button>();
         LoginButton.onClick.AddListener(loginClick);
 

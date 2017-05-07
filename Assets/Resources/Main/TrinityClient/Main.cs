@@ -6,12 +6,32 @@ using UnityEngine;
 public class Main : MonoBehaviour {
 
     public GameObject login;
+    public GameObject notifyBox;
+    public GameObject realmBox;
+    public GameObject Realm;
+    //public GameObject characterList;
+    //public GameObject characterCreate;
+    //public GameObject Loading;
+
+    public Sprite realmListHighlight;
+    public Sprite realmListClear;
+
     public static string REALM_LIST_ADDRESS = "127.0.0.1";
     public static string LAST_KNOWN_REALM_LIST = " ";
 
     // Use this for initialization
     void Start()
     {
+        Global.login = login;
+        Global.notifyBox = notifyBox;
+        Global.realmBox = realmBox;
+        Global.Realm = Realm;
+        Global.realmListHighlight = realmListHighlight;
+        Global.realmListClear = realmListClear;
+        //Global.characterList = characterList;
+        //Global.characterCreate = characterCreate;
+        //Global.Loading = Loading;
+
         if (!System.IO.File.Exists(Application.dataPath + "/RealmList.txt"))
         {
             File.Create(Application.dataPath + "/RealmList.txt").Close();
