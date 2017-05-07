@@ -11,10 +11,14 @@ public class LoginMain : MonoBehaviour {
     Button QuitButton;
     InputField AccountName;
     InputField AccountPassword;
+    Text LastKnownRealm;
 
     // Use this for initialization
     void Start()
     {
+        LastKnownRealm = GameObject.Find("LastKnownRealm").GetComponent<Text>();
+        LastKnownRealm.text = Main.LAST_KNOWN_REALM_LIST;
+
         LoginButton = GameObject.Find("loginButton").GetComponent<Button>();
         LoginButton.onClick.AddListener(loginClick);
 
@@ -24,8 +28,7 @@ public class LoginMain : MonoBehaviour {
 
     // Update is called once per frame
     void Update()
-    {
-
+    {        
 
     }
 

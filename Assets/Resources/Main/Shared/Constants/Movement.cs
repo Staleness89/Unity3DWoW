@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Script.Shared.Constants
-{
+
     public enum MovementFlags
     {
         MOVEMENTFLAG_NONE = 0x00000000,
@@ -42,4 +41,3 @@ namespace Assets.Script.Shared.Constants
         TARGET = 0x00020000,
         ORIENT = 0x00040000
     };
-}

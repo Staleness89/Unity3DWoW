@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Script.Shared.Constants
-{
     public enum Classname : uint
     {
         Warrior = 1,
@@ -88,20 +86,18 @@ namespace Assets.Script.Shared.Constants
         public UInt32 rank;
     }
 
-    public enum ObjectType
-    {
-        Object = 0,
-        Item = 1,
-        Container = 2,
-        Unit = 3,
-        Player = 4,
-        GameObject = 5,
-        DynamicObject = 6,
-        Corpse = 7,
-        AIGroup = 8,
-        AreaTrigger = 9,
-        Count,
-        None = 0xFF
-    }
-
+public enum ObjectType
+{
+    Object = 0,
+    Item = 1,
+    Container = 2,
+    Unit = 3,
+    Player = 4,
+    GameObject = 5,
+    DynamicObject = 6,
+    Corpse = 7,
+    AIGroup = 8,
+    AreaTrigger = 9,
+    Count,
+    None = 0xFF
 }

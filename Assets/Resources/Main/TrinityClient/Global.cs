@@ -13,13 +13,16 @@ public class Global : MonoBehaviour
     public static GameObject notifyBox;
     public static GameObject realmBox;
     public static GameObject Realm;
-    //public static GameObject characterList;
-    //public static GameObject characterCreate;
+    public static GameObject characterList;
+    public static GameObject characterCreate;
     //public static GameObject Loading;
 
     static GameObject notify;    
     static GameObject realmList;
-    
+    static GameObject CharacterList;
+    static GameObject CharacterCreate;
+
+
     static Text NotifyText;
     static Button NotifyButton;
     static Text NotifyButtonText;
@@ -68,16 +71,18 @@ public class Global : MonoBehaviour
         {
             realmList = Instantiate(realmBox, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
             realmList.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+            realmList.transform.localScale = new Vector3(1, 1, 1);
             realmList.name = "RealmList";
 
             int space = 0;
             foreach (Realm rl in realm)
             {
-                GameObject newgo = Instantiate(Realm, new Vector3(Screen.width / 2, Screen.height / 2 - space, 0), Quaternion.identity);
-                newgo.transform.parent = GameObject.Find("RealmList").gameObject.transform;
-                newgo.name = rl.Name;
+                GameObject newRealm = Instantiate(Realm, new Vector3(Screen.width / 2, Screen.height / 2 - space, 0), Quaternion.identity);
+                newRealm.transform.parent = GameObject.Find("RealmList").gameObject.transform;
+                newRealm.transform.localScale = new Vector3(1, 1, 1);
+                newRealm.name = rl.Name;
 
-                Transform[] ts = newgo.transform.GetComponentsInChildren<Transform>(true);
+                Transform[] ts = newRealm.transform.GetComponentsInChildren<Transform>(true);
                 foreach (Transform t in ts)
                 {
                     if (t.gameObject.name == "RealmRealmName")
@@ -192,11 +197,7 @@ public class Global : MonoBehaviour
         int x = Convert.ToInt32(gameObject.name.Substring(gameObject.name.Length - 1));
         Exchange.currRealm = Exchange.authClient.Realmlist[x];
 
-        if (Exchange.currRealm.wOnline == 0)
-        {
-
-        }
-        else
+        if (Exchange.currRealm.wOnline == 1)
         {
             realmSelect = GameObject.Find(gameObject.name).GetComponent<Image>();
             realmSelect.sprite = realmListHighlight;
@@ -206,5 +207,50 @@ public class Global : MonoBehaviour
     public static void closeRealmList()
     {
         Destroy(realmList);
+    }
+
+    public static void closeLogin()
+    {
+        Destroy(GameObject.Find("Login"));
+    }
+
+    public static void showLogin()
+    {
+        GameObject mainLogin = Instantiate(login, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
+        mainLogin.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+        mainLogin.transform.localScale = new Vector3(1, 1, 1);
+        mainLogin.name = "Login";
+    }
+
+    public static void showCharCreate()
+    {
+        if (!GameObject.Find("CharacterCreate"))
+        {
+            CharacterCreate = Instantiate(characterCreate, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
+            CharacterCreate.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+            CharacterCreate.transform.localScale = new Vector3(1, 1, 1);
+            CharacterCreate.name = "CharacterCreate";
+        }
+    }
+
+    public static void closeCharCreate()
+    {
+        Destroy(CharacterCreate);
+    }
+
+    public static void showCharList()
+    {
+        if (!GameObject.Find("CharacterList"))
+        {
+            CharacterList = Instantiate(characterList, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
+            CharacterList.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+            CharacterList.transform.localScale = new Vector3(1, 1, 1);
+            CharacterList.name = "CharacterList";
+        }
+    }
+
+    public static void closeCharList()
+    {
+        Destroy(CharacterList);
     }
 }

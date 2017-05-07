@@ -52,9 +52,6 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -69,9 +66,6 @@
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
@@ -94,6 +88,7 @@
     <Compile Include="Assets\Resources\Main\Shared\Constants\Opcodes.cs" />
     <Compile Include="Assets\Resources\Main\Shared\Constants\Realm.cs" />
     <Compile Include="Assets\Resources\Main\Shared\Constants\UpdateFields.cs" />
+    <Compile Include="Assets\Resources\Main\Shared\Coordinate.cs" />
     <Compile Include="Assets\Resources\Main\Shared\Crypt\ARC4.cs" />
     <Compile Include="Assets\Resources\Main\Shared\Crypt\BigInteger.cs" />
     <Compile Include="Assets\Resources\Main\Shared\Crypt\PacketCrypt.cs" />
@@ -102,11 +97,31 @@
     <Compile Include="Assets\Resources\Main\Shared\Exchange.cs" />
     <Compile Include="Assets\Resources\Main\Shared\Packets\PacketReader.cs" />
     <Compile Include="Assets\Resources\Main\Shared\Packets\PacketWriter.cs" />
+    <Compile Include="Assets\Resources\Main\Shared\UpdateMask.cs" />
+    <Compile Include="Assets\Resources\Main\Shared\WoWGuid.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\ActualRealm.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\Global.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\LoginMain.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\Main.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\RealmList.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\CombatMgr.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\MovementMgr.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\ObjectMgr.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\Terrain\ADT.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\Terrain\BlizChunkHeader.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\Terrain\Extensions.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\Terrain\MapTile.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\Terrain\Vect3D.cs" />
+    <Compile Include="Assets\Resources\Main\World\Managers\TerrainMgr.cs" />
+    <Compile Include="Assets\Resources\Main\World\Objects\Object.cs" />
+    <Compile Include="Assets\Resources\Main\World\Objects\Player.cs" />
+    <Compile Include="Assets\Resources\Main\World\Packets\HandlerDefinitions.cs" />
+    <Compile Include="Assets\Resources\Main\World\Packets\Handlers\AuthHandler.cs" />
+    <Compile Include="Assets\Resources\Main\World\Packets\Handlers\ChatHandler.cs" />
+    <Compile Include="Assets\Resources\Main\World\Packets\Handlers\MiscHandler.cs" />
+    <Compile Include="Assets\Resources\Main\World\Packets\Handlers\ObjectHandler.cs" />
+    <Compile Include="Assets\Resources\Main\World\Packets\PacketManager.cs" />
+    <Compile Include="Assets\Resources\Main\World\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\RealmList.txt" />

@@ -303,9 +303,9 @@ public class AuthSocket
                 if (LastKnownRealm.wOnline == 1)
                 {
                     
-                    //Exchange.currRealm = LastKnownRealm;
-                    //Exchange.worldClient = new World.World(mUsername, LastKnownRealm, mKey);
-                    //Exchange.worldClient.Connect();
+                    Exchange.currRealm = LastKnownRealm;
+                    Exchange.worldClient = new World(mUsername, LastKnownRealm, mKey);
+                    Exchange.worldClient.Connect();
                 }
                 else
                 {

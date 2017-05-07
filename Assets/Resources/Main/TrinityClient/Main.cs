@@ -9,8 +9,8 @@ public class Main : MonoBehaviour {
     public GameObject notifyBox;
     public GameObject realmBox;
     public GameObject Realm;
-    //public GameObject characterList;
-    //public GameObject characterCreate;
+    public GameObject characterList;
+    public GameObject characterCreate;
     //public GameObject Loading;
 
     public Sprite realmListHighlight;
@@ -28,8 +28,8 @@ public class Main : MonoBehaviour {
         Global.Realm = Realm;
         Global.realmListHighlight = realmListHighlight;
         Global.realmListClear = realmListClear;
-        //Global.characterList = characterList;
-        //Global.characterCreate = characterCreate;
+        Global.characterList = characterList;
+        Global.characterCreate = characterCreate;
         //Global.Loading = Loading;
 
         if (!System.IO.File.Exists(Application.dataPath + "/RealmList.txt"))
@@ -58,9 +58,9 @@ public class Main : MonoBehaviour {
             }
         }
 
-
         GameObject mainLogin = Instantiate(login, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
         mainLogin.transform.parent = transform;
+        mainLogin.transform.localScale = new Vector3(1, 1, 1);
         mainLogin.name = "Login";
     }
 
@@ -70,6 +70,11 @@ public class Main : MonoBehaviour {
         if(Exchange.authClient != null)
         {
             Exchange.authClient.OnConnect();
+        }
+
+        if (Exchange.worldClient != null)
+        {
+            Exchange.worldClient.Loop();
         }
     }
 }
