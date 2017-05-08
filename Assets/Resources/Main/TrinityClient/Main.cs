@@ -11,6 +11,7 @@ public class Main : MonoBehaviour {
     public GameObject Realm;
     public GameObject characterList;
     public GameObject characterCreate;
+    public GameObject characters;
     //public GameObject Loading;
 
     public Sprite realmListHighlight;
@@ -22,6 +23,7 @@ public class Main : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Global.characters = characters;
         Global.login = login;
         Global.notifyBox = notifyBox;
         Global.realmBox = realmBox;

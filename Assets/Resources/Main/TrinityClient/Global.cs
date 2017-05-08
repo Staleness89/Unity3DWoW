@@ -15,12 +15,14 @@ public class Global : MonoBehaviour
     public static GameObject Realm;
     public static GameObject characterList;
     public static GameObject characterCreate;
+    public static GameObject characters;
     //public static GameObject Loading;
 
     static GameObject notify;    
     static GameObject realmList;
     static GameObject CharacterList;
     static GameObject CharacterCreate;
+    static GameObject Characters;
 
 
     static Text NotifyText;
@@ -247,10 +249,76 @@ public class Global : MonoBehaviour
             CharacterList.transform.localScale = new Vector3(1, 1, 1);
             CharacterList.name = "CharacterList";
         }
+
+        Text curRealm = GameObject.Find("curRealmName").GetComponent<Text>();
+        curRealm.text = Exchange.currRealm.Name;
+
+        int space = 0;
+
+        foreach (Character c in Exchange.worldClient.Charlist)
+        {
+            if (!GameObject.Find("Characters"))
+            {
+                Characters = Instantiate(characters, new Vector3(Screen.width / 2, Screen.height / 2 - space, 0), Quaternion.identity);
+                Characters.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+                Characters.transform.localScale = new Vector3(1, 1, 1);
+                Characters.name = c.Name;
+            }
+
+            Transform[] ts = Characters.transform.GetComponentsInChildren<Transform>(true);
+            foreach (Transform t in ts)
+            {
+                if (t.gameObject.name == "CharacterName")
+                {
+                    t.gameObject.name = c.Name + "CharacterName";
+                    Text Temp = GameObject.Find(c.Name + "CharacterName").GetComponent<Text>();
+                    Temp.text = c.Name;
+                }
+
+                if (t.gameObject.name == "CharacterZone")
+                {
+                    t.gameObject.name = c.Name + "CharacterZone";
+                    Text Temp = GameObject.Find(c.Name + "CharacterZone").GetComponent<Text>();
+                    Temp.text = Exchange.worldClient.objectMgr.GetZoneByID((int)c.Zone);
+                }
+
+                if (t.gameObject.name == "CharacterLevel")
+                {
+                    t.gameObject.name = c.Name + "CharacterLevel";
+                    Text Temp = GameObject.Find(c.Name + "CharacterLevel").GetComponent<Text>();
+                    Temp.text = c.Level.ToString();
+                }
+
+                if (t.gameObject.name == "CharacterClass")
+                {
+                    t.gameObject.name = c.Name + "CharacterClass";
+                    Text Temp = GameObject.Find(c.Name + "CharacterClass").GetComponent<Text>();
+                    Temp.text = Exchange.worldClient.objectMgr.GetClassName(c.Class);
+                }
+                
+            }
+
+            space = space + 55;
+        }
     }
 
     public static void closeCharList()
     {
         Destroy(CharacterList);
+    }
+
+    public static void showCharacter(Character[] c, int space)
+    {
+        if (!GameObject.Find("Characters"))
+        {
+            Characters = Instantiate(characters, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
+            Characters.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+            Characters.name = "Characters";
+        }        
+    }
+
+    public static void closeCharacters(Character c)
+    {
+        Destroy(notify);
     }
 }
