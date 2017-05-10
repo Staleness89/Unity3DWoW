@@ -77,51 +77,59 @@ public class AuthHandler
         Global.showNotifyBox("Retrieving Character List.", "Cancel");
         byte count = packet.ReadByte();
 
-        Character[] characterList = new Character[count];
-        for (int i = 0; i < count; i++)
+        try
         {
-
-
-            characterList[i].GUID = packet.ReadUInt64();
-            characterList[i].Name = packet.ReadString();
-            characterList[i].Race = packet.ReadByte();
-            characterList[i].Class = packet.ReadByte();
-            characterList[i].Gender = packet.ReadByte();
-            characterList[i].Skin = packet.ReadByte();
-            characterList[i].Face = packet.ReadByte();
-            characterList[i].HairStyle = packet.ReadByte();
-            characterList[i].HairColour = packet.ReadByte();
-            characterList[i].FacialHair = packet.ReadByte();
-            characterList[i].Level = packet.ReadByte();
-            characterList[i].Zone = packet.ReadUInt32();
-            characterList[i].MapID = packet.ReadUInt32();
-            characterList[i].X = packet.ReadFloat();
-            characterList[i].Y = packet.ReadFloat();
-            characterList[i].Z = packet.ReadFloat();
-            characterList[i].GuildGuid = packet.ReadUInt32();
-            packet.ReadUInt32();
-            packet.ReadByte();
-
-            packet.ReadUInt32();
-            packet.ReadUInt32();
-            packet.ReadUInt32();
-
-            for (byte iv = 0; iv < (byte)19; iv++) //Loop through inventory types
+            Character[] characterList = new Character[count];
+            for (int i = 0; i < count; i++)
             {
+                characterList[i].GUID = packet.ReadUInt64();
+                characterList[i].Name = packet.ReadString();
+                characterList[i].Race = packet.ReadByte();
+                characterList[i].Class = packet.ReadByte();
+                characterList[i].Gender = packet.ReadByte();
+                characterList[i].Skin = packet.ReadByte();
+                characterList[i].Face = packet.ReadByte();
+                characterList[i].HairStyle = packet.ReadByte();
+                characterList[i].HairColour = packet.ReadByte();
+                characterList[i].FacialHair = packet.ReadByte();
+                characterList[i].Level = packet.ReadByte();
+                characterList[i].Zone = packet.ReadUInt32();
+                characterList[i].MapID = packet.ReadUInt32();
+                characterList[i].X = packet.ReadFloat();
+                characterList[i].Y = packet.ReadFloat();
+                characterList[i].Z = packet.ReadFloat();
+                characterList[i].GuildGuid = packet.ReadUInt32();
+                packet.ReadUInt32();
+                packet.ReadByte();
+
+                packet.ReadUInt32();
+                packet.ReadUInt32();
+                packet.ReadUInt32();
+
+                for (byte it = 0; it < (byte)InventoryTypes.HOLDABLE; it++) //Loop through inventory types
+                {
+                    if (it == (byte)InventoryTypes.TRINKET || it == (byte)InventoryTypes.FINGER || it == (byte)InventoryTypes.NECK || it == (byte)InventoryTypes.BAG) //Ignore non visible - Cloaks weren't visible this patch!
+                        continue;
+
+                    uint DisplayID = packet.ReadUInt32();
+                    byte InventoryType = packet.ReadByte();
+                }
+
                 packet.ReadUInt32();
                 packet.ReadByte();
             }
 
-            packet.ReadUInt32();
-            packet.ReadByte();
+            manager.Charlist = characterList;
+
+            Global.closeNotify();
+            Global.closeRealmList();
+            Global.closeLogin();
+            Global.showCharList();
         }
-
-        manager.Charlist = characterList;
-
-        Global.closeNotify();
-        Global.closeRealmList();
-        Global.closeLogin();
-        Global.showCharList();
+        catch
+        {
+            Global.showNotifyBox("Error Retrieving Character List.", "Okay");
+        }
     }
 
     public static void LoginPlayer(Character chr, World manager)

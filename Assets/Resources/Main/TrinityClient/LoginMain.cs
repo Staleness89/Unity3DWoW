@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class LoginMain : MonoBehaviour {
 
     // Use this for initialization
-    
+    string Account = "";
+    string Password = "";
+    public static bool tryingToLogin = false;
     Button LoginButton;
     Button QuitButton;
     InputField AccountName;
@@ -34,10 +36,9 @@ public class LoginMain : MonoBehaviour {
 
     void loginClick()
     {
-        AccountName = GameObject.Find("AccountName").GetComponent<InputField>();
-        AccountPassword = GameObject.Find("AccountPassword").GetComponent<InputField>();
+        tryingToLogin = true;
 
-        if (AccountName.text.Length < 3 || AccountPassword.text.Length < 3)
+        if (Account.Length < 3 || Password.Length < 3)
         {
             Global.showNotifyBox("Account Name Length Too Short", "Okay");
         }
@@ -46,10 +47,44 @@ public class LoginMain : MonoBehaviour {
 
             Global.showNotifyBox("Connecting...", "Cancel");
 
-            AuthSocket newLogin = new AuthSocket(AccountName.text, AccountPassword.text, Main.REALM_LIST_ADDRESS);
+            AuthSocket newLogin = new AuthSocket(Account, Password, Main.REALM_LIST_ADDRESS);
             newLogin.Login();
             Exchange.authClient = newLogin;
         }
+    }
+
+    void OnGUI()
+    {
+        if (Event.current.Equals(Event.KeyboardEvent("return")))
+        {
+            loginClick();
+        }
+
+        if (!tryingToLogin)
+        {
+            if (Account.Length < 1 && Password.Length < 1)
+            {
+                GUI.FocusControl("AccountBox");
+            }
+
+            GUI.SetNextControlName("AccountBox");
+            Account = GUI.TextField(ResizeGUI(new Rect(325, 315, 150, 20)), Account, 20);
+
+            GUI.SetNextControlName("PasswordBox");
+            Password = GUI.PasswordField(ResizeGUI(new Rect(325, 360, 150, 20)), Password, '*');
+        }
+    }
+
+    Rect ResizeGUI(Rect _rect)
+    {
+        float FilScreenWidth = _rect.width / 800;
+        float rectWidth = FilScreenWidth * Screen.width;
+        float FilScreenHeight = _rect.height / 600;
+        float rectHeight = FilScreenHeight * Screen.height;
+        float rectX = (_rect.x / 800) * Screen.width;
+        float rectY = (_rect.y / 600) * Screen.height;
+
+        return new Rect(rectX, rectY, rectWidth, rectHeight);
     }
 
     void quitClick()

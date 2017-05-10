@@ -23,8 +23,7 @@ public class Global : MonoBehaviour
     static GameObject CharacterList;
     static GameObject CharacterCreate;
     static GameObject Characters;
-
-
+    
     static Text NotifyText;
     static Button NotifyButton;
     static Text NotifyButtonText;
@@ -59,6 +58,7 @@ public class Global : MonoBehaviour
 
     public static void closeNotify()
     {
+        LoginMain.tryingToLogin = false;
         Destroy(notify);
     }
 
@@ -260,7 +260,7 @@ public class Global : MonoBehaviour
             if (!GameObject.Find("Characters"))
             {
                 Characters = Instantiate(characters, new Vector3(Screen.width / 2, Screen.height / 2 - space, 0), Quaternion.identity);
-                Characters.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+                Characters.transform.parent = GameObject.Find("CharacterList").gameObject.transform;
                 Characters.transform.localScale = new Vector3(1, 1, 1);
                 Characters.name = c.Name;
             }
@@ -300,25 +300,16 @@ public class Global : MonoBehaviour
 
             space = space + 55;
         }
+
     }
 
     public static void closeCharList()
     {
-        Destroy(CharacterList);
-    }
-
-    public static void showCharacter(Character[] c, int space)
-    {
-        if (!GameObject.Find("Characters"))
+        foreach (Character c in Exchange.worldClient.Charlist)
         {
-            Characters = Instantiate(characters, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
-            Characters.transform.parent = GameObject.Find("Canvas").gameObject.transform;
-            Characters.name = "Characters";
-        }        
-    }
+            Destroy(GameObject.Find(c.Name));            
+        }
 
-    public static void closeCharacters(Character c)
-    {
-        Destroy(notify);
-    }
+        Destroy(CharacterList);
+    }    
 }

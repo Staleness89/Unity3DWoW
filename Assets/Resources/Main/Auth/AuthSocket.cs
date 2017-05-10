@@ -297,6 +297,7 @@ public class AuthSocket
             packetIn.ReadUInt16();
 
             Realmlist = realms;
+            Exchange.realms = realms;
 
             if (LastKnownRealm.Name == Main.LAST_KNOWN_REALM_LIST)
             {
