@@ -9,6 +9,6 @@ public class Exchange
     public static Realm currRealm;
     public static Realm[] realms;
     public static AuthSocket authClient = null;
-    public static World worldClient = null;  
+    public static World worldClient = null;
 
 }

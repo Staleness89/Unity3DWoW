@@ -12,6 +12,7 @@ public class Main : MonoBehaviour {
     public GameObject characterList;
     public GameObject characterCreate;
     public GameObject characters;
+    public GameObject deleteNotify;
     //public GameObject Loading;
 
     public Sprite realmListHighlight;
@@ -23,6 +24,7 @@ public class Main : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Global.deleteNotify = deleteNotify;
         Global.characters = characters;
         Global.login = login;
         Global.notifyBox = notifyBox;

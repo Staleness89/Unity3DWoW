@@ -9,12 +9,15 @@ using UnityEngine.SceneManagement;
 
 public class AuthHandler
 {
+    static bool recentlyDeletedOrCreated = false;
+    static string recentlyDeletedOrCreatedText = "";
+    public static byte CharacterCount = 0;
+
     public static void HandleAuthChallenge(ref PacketReader packet1, ref World manager)
     {
         manager.ServerSeed = packet1.ReadUInt32();
         manager.ClientSeed = (UInt32)0;
-
-
+        
         try
         {
             PacketWriter packet = new PacketWriter(WorldServerOpCode.CMSG_AUTH_SESSION);
@@ -75,12 +78,12 @@ public class AuthHandler
     public static void HandleCharEnum(ref PacketReader packet, ref World manager)
     {
         Global.showNotifyBox("Retrieving Character List.", "Cancel");
-        byte count = packet.ReadByte();
+        CharacterCount = packet.ReadByte();
 
         try
         {
-            Character[] characterList = new Character[count];
-            for (int i = 0; i < count; i++)
+            Character[] characterList = new Character[CharacterCount];
+            for (int i = 0; i < CharacterCount; i++)
             {
                 characterList[i].GUID = packet.ReadUInt64();
                 characterList[i].Name = packet.ReadString();
@@ -121,7 +124,17 @@ public class AuthHandler
 
             manager.Charlist = characterList;
 
-            Global.closeNotify();
+            if (!recentlyDeletedOrCreated)
+            {
+                Global.closeNotify();
+                recentlyDeletedOrCreated = false;
+            }
+            else
+            {
+                Global.showNotifyBox(recentlyDeletedOrCreatedText, "Okay");
+                recentlyDeletedOrCreated = false;
+            }
+
             Global.closeRealmList();
             Global.closeLogin();
             Global.showCharList();
@@ -161,6 +174,8 @@ public class AuthHandler
 
     public static void HandleCharDelete(Character c, World manager)
     {
+        Global.closeCharList();
+        Global.closeDeleteNotify();
         PacketWriter outpacket = new PacketWriter(WorldServerOpCode.CMSG_CHAR_DELETE);// .CMSG_CHAR_ENUM);
         outpacket.Write(c.GUID);
         manager.Send(outpacket);
@@ -168,10 +183,13 @@ public class AuthHandler
 
     public static void HandleCharDeleteResponse(ref PacketReader packet, ref World manager)
     {
-        byte result = packet.ReadByte();
+        LoginErrorCode result = (LoginErrorCode)packet.ReadByte();
 
-        if (result == (byte)LoginErrorCode.CHAR_CREATE_SUCCESS)
-        {
+        if (result == LoginErrorCode.CHAR_DELETE_SUCCESS)
+        {            
+            CharacterList.updateDelete = false;
+            recentlyDeletedOrCreated = true;
+            recentlyDeletedOrCreatedText = "Character Successfully Deleted.";
             PacketWriter outpacket = new PacketWriter(WorldServerOpCode.CMSG_CHAR_ENUM);
             manager.Send(outpacket);
         }

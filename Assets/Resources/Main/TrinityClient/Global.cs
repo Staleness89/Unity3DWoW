@@ -16,6 +16,7 @@ public class Global : MonoBehaviour
     public static GameObject characterList;
     public static GameObject characterCreate;
     public static GameObject characters;
+    public static GameObject deleteNotify;
     //public static GameObject Loading;
 
     static GameObject notify;    
@@ -218,10 +219,27 @@ public class Global : MonoBehaviour
 
     public static void showLogin()
     {
+        if (GameObject.Find("Login"))
+        {
+            return;
+        }
         GameObject mainLogin = Instantiate(login, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
         mainLogin.transform.parent = GameObject.Find("Canvas").gameObject.transform;
         mainLogin.transform.localScale = new Vector3(1, 1, 1);
         mainLogin.name = "Login";
+    }
+
+    public static void closeDeleteNotify()
+    {
+        Destroy(GameObject.Find("DeleteNotify"));
+    }
+
+    public static void showDeleteNotify()
+    {
+        GameObject delete = Instantiate(deleteNotify, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
+        delete.transform.parent = GameObject.Find("Canvas").gameObject.transform;
+        delete.transform.localScale = new Vector3(1, 1, 1);
+        delete.name = "DeleteNotify";
     }
 
     public static void showCharCreate()
@@ -295,7 +313,12 @@ public class Global : MonoBehaviour
                     Text Temp = GameObject.Find(c.Name + "CharacterClass").GetComponent<Text>();
                     Temp.text = Exchange.worldClient.objectMgr.GetClassName(c.Class);
                 }
-                
+
+                if (t.gameObject.name == "Selected")
+                {
+                    t.gameObject.name = c.Name + "Selected";
+                }
+
             }
 
             space = space + 55;
