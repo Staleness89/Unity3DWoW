@@ -18,8 +18,8 @@ public class CharacterList : MonoBehaviour {
         
         Realms = GameObject.Find("RealmsButton").GetComponent<Button>();
         Realms.onClick.AddListener(RealmsClick);
-        /*createCharacter = GameObject.Find("RealmsButton").GetComponent<Button>();
-        createCharacter.onClick.AddListener(RealmsClick);*/
+        createCharacter = GameObject.Find("CreateCharacter").GetComponent<Button>();
+        createCharacter.onClick.AddListener(createCharacterClick);
         deleteCharacter = GameObject.Find("DeleteCharacter").GetComponent<Button>();
         deleteCharacter.onClick.AddListener(DeleteCharacterFunc);
         back = GameObject.Find("BackButton").GetComponent<Button>();
@@ -63,7 +63,13 @@ public class CharacterList : MonoBehaviour {
 
     void deleteConfirmfunc()
     {
-        AuthHandler.HandleCharDelete(Exchange.worldClient.curChar, Exchange.worldClient);        
+        AuthHandler.HandleCharDelete(Exchange.worldClient.curChar, Exchange.worldClient);
+    }
+
+    void createCharacterClick()
+    {
+        Global.closeCharList();
+        Global.showCharCreate();
     }
 
     public void selectCharacter()

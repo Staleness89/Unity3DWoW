@@ -217,12 +217,13 @@ public class AuthHandler
 
     public static void HandleCharCreateResponse(ref PacketReader packet, ref World manager)
     {
-        byte result = packet.ReadByte();
+        LoginErrorCode result = (LoginErrorCode)packet.ReadByte();
 
-        if (result == (byte)LoginErrorCode.CHAR_CREATE_SUCCESS)
+        if (result == LoginErrorCode.CHAR_CREATE_SUCCESS)
         {
             PacketWriter outpacket = new PacketWriter(WorldServerOpCode.CMSG_CHAR_ENUM);
             manager.Send(outpacket);
+            Global.closeCharCreate();
         }
 
     }

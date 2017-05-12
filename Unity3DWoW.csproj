@@ -106,7 +106,9 @@
     <Compile Include="Assets\Resources\Main\Shared\UpdateMask.cs" />
     <Compile Include="Assets\Resources\Main\Shared\WoWGuid.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\ActualRealm.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\CharacterCreate.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\CharacterList.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\Functions.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\Global.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\LoginMain.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\Main.cs" />

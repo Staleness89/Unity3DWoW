@@ -17,7 +17,20 @@ public class Global : MonoBehaviour
     public static GameObject characterCreate;
     public static GameObject characters;
     public static GameObject deleteNotify;
+    public static GameObject maleModel;
+    public static GameObject femaleModel;
     //public static GameObject Loading;
+
+    public static string selectedRace = "";
+    public static string selectedClass = "";
+    public static string selectedGender = "";
+
+
+    public static string Name;
+    public static byte Race;
+    public static byte Class;
+    public static byte Gender;
+
 
     static GameObject notify;    
     static GameObject realmList;
@@ -31,6 +44,7 @@ public class Global : MonoBehaviour
 
     public static Sprite realmListHighlight;
     public static Sprite realmListClear;
+    public static Sprite selected;
 
     static Text realmName;
     static Text realmTypetext;

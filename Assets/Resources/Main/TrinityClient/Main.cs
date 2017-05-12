@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Main : MonoBehaviour {
 
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+    public Texture2D[] Pointers = new Texture2D[5];
     public GameObject login;
     public GameObject notifyBox;
     public GameObject realmBox;
@@ -13,10 +16,13 @@ public class Main : MonoBehaviour {
     public GameObject characterCreate;
     public GameObject characters;
     public GameObject deleteNotify;
+    public GameObject maleModel;
+    public GameObject femaleModel;
     //public GameObject Loading;
 
     public Sprite realmListHighlight;
     public Sprite realmListClear;
+    public Sprite selected;
 
     public static string REALM_LIST_ADDRESS = "127.0.0.1";
     public static string LAST_KNOWN_REALM_LIST = " ";
@@ -24,6 +30,9 @@ public class Main : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Global.selected = selected;
+        Global.femaleModel = femaleModel;
+        Global.maleModel = maleModel;
         Global.deleteNotify = deleteNotify;
         Global.characters = characters;
         Global.login = login;
@@ -35,6 +44,8 @@ public class Main : MonoBehaviour {
         Global.characterList = characterList;
         Global.characterCreate = characterCreate;
         //Global.Loading = Loading;
+
+        setPointer();
 
         if (!System.IO.File.Exists(Application.dataPath + "/RealmList.txt"))
         {
@@ -81,4 +92,13 @@ public class Main : MonoBehaviour {
             Exchange.worldClient.Loop();
         }
     }
+
+
+
+    void setPointer()
+    {
+        //Switch Case for type on objects.
+        Cursor.SetCursor(Pointers[0], hotSpot, cursorMode);
+    }
+
 }
