@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Functions : MonoBehaviour {
-
+    
 	// Use this for initialization
 	void Start () {
 		
@@ -17,7 +17,7 @@ public class Functions : MonoBehaviour {
 	}
 
     public void mouseOut()
-    {
+    {        
         Destroy(GameObject.Find("TempHigh"));
     }
 
@@ -29,7 +29,7 @@ public class Functions : MonoBehaviour {
         Image go = GameObject.Find("TempHigh").GetComponent<Image>();
         go.sprite = Global.selected;
 
-        if (gameObject.name == "Male0" || gameObject.name == "Female1")
+        if (gameObject.name == "Male0" || gameObject.name == "Female1" || gameObject.name == "class1" || gameObject.name == "class2" || gameObject.name == "class3" || gameObject.name == "class4" || gameObject.name == "class5" || gameObject.name == "class6")
         {
             go.rectTransform.sizeDelta = new Vector2(45, 45);
         }
@@ -65,6 +65,24 @@ public class Functions : MonoBehaviour {
 
     public void selectClass(string c)
     {
+        GameObject SelectedClass;
+
+        GameObject Class = GameObject.Find(c);
+
+        if (GameObject.Find("ClassSelected"))
+        {
+            Destroy(GameObject.Find("ClassSelected"));
+        }
+
+        Global.Class = (byte)Convert.ToInt32(Class.name.Substring(Class.name.Length - 1));
+        Global.selectedClass = Class.name;
+
+        SelectedClass = GameObject.Find("TempHigh");
+        SelectedClass.name = "ClassSelected";
+
+        Image selected = GameObject.Find("ClassSelected").GetComponent<Image>();
+        selected.sprite = Global.selected;
+        selected.rectTransform.sizeDelta = new Vector2(45, 45);
         
     }
 
@@ -90,4 +108,5 @@ public class Functions : MonoBehaviour {
         selected.rectTransform.sizeDelta = new Vector2(45, 45);
 
     }
+
 }

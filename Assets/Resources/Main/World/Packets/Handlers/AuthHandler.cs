@@ -219,13 +219,23 @@ public class AuthHandler
     {
         LoginErrorCode result = (LoginErrorCode)packet.ReadByte();
 
-        if (result == LoginErrorCode.CHAR_CREATE_SUCCESS)
+        switch(result)
         {
-            PacketWriter outpacket = new PacketWriter(WorldServerOpCode.CMSG_CHAR_ENUM);
-            manager.Send(outpacket);
-            Global.closeCharCreate();
+            case LoginErrorCode.CHAR_CREATE_SUCCESS:
+                PacketWriter outpacket = new PacketWriter(WorldServerOpCode.CMSG_CHAR_ENUM);
+                manager.Send(outpacket);
+                Global.closeCharCreate();
+                break;
+            case LoginErrorCode.CHAR_CREATE_ERROR:
+                Global.showNotifyBox("Error Creating Character.", "Okay");
+                break;
+            case LoginErrorCode.CHAR_CREATE_NAME_IN_USE:
+                Global.showNotifyBox("Character Name Already In Use.", "Okay");
+                break;
+            case LoginErrorCode.CHAR_CREATE_FAILED:
+                Global.showNotifyBox("Character Creation Failed.", "Okay");
+                break;
         }
-
     }
 
     static byte[] account_data = {

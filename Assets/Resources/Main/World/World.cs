@@ -96,7 +96,7 @@ public class World
         Global.showNotifyBox("Connected.", "Cancel");
         HandlerDefinitions.InitializePacketHandler();
         Ping.Elapsed += new ElapsedEventHandler(pingLoop);
-        Ping.Interval = 15000;
+        Ping.Interval = 30000;
         Ping.Enabled = true;
         Ping_Seq = 1;
         Latency = 1;

@@ -18,8 +18,7 @@ public class Main : MonoBehaviour {
     public GameObject deleteNotify;
     public GameObject maleModel;
     public GameObject femaleModel;
-    //public GameObject Loading;
-
+    
     public Sprite realmListHighlight;
     public Sprite realmListClear;
     public Sprite selected;
@@ -30,6 +29,7 @@ public class Main : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Exchange.Pointers = Pointers;
         Global.selected = selected;
         Global.femaleModel = femaleModel;
         Global.maleModel = maleModel;
@@ -73,10 +73,7 @@ public class Main : MonoBehaviour {
             }
         }
 
-        GameObject mainLogin = Instantiate(login, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
-        mainLogin.transform.parent = transform;
-        mainLogin.transform.localScale = new Vector3(1, 1, 1);
-        mainLogin.name = "Login";
+        Global.showLogin();
     }
 
     // Update is called once per frame

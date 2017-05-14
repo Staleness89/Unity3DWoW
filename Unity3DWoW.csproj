@@ -52,6 +52,9 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -66,6 +69,9 @@
     </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VR">
       <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
@@ -106,13 +112,19 @@
     <Compile Include="Assets\Resources\Main\Shared\UpdateMask.cs" />
     <Compile Include="Assets\Resources\Main\Shared\WoWGuid.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\ActualRealm.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\ActualWorld.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\CameraControllercs.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\CharacterCreate.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\CharacterList.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\Functions.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\Global.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\LoadingScreen.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\LoginMain.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\Main.cs" />
     <Compile Include="Assets\Resources\Main\TrinityClient\RealmList.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\TileNavigation.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\Tileself.cs" />
+    <Compile Include="Assets\Resources\Main\TrinityClient\WarcraftController.cs" />
     <Compile Include="Assets\Resources\Main\World\Managers\CombatMgr.cs" />
     <Compile Include="Assets\Resources\Main\World\Managers\MovementMgr.cs" />
     <Compile Include="Assets\Resources\Main\World\Managers\ObjectMgr.cs" />
@@ -123,7 +135,7 @@
     <Compile Include="Assets\Resources\Main\World\Managers\Terrain\Vect3D.cs" />
     <Compile Include="Assets\Resources\Main\World\Managers\TerrainMgr.cs" />
     <Compile Include="Assets\Resources\Main\World\Objects\Object.cs" />
-    <Compile Include="Assets\Resources\Main\World\Objects\Player.cs" />
+    <Compile Include="Assets\Resources\Main\World\Objects\Unit.cs" />
     <Compile Include="Assets\Resources\Main\World\Packets\HandlerDefinitions.cs" />
     <Compile Include="Assets\Resources\Main\World\Packets\Handlers\AuthHandler.cs" />
     <Compile Include="Assets\Resources\Main\World\Packets\Handlers\ChatHandler.cs" />

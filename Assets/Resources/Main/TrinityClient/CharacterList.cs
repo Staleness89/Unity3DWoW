@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterList : MonoBehaviour {
@@ -24,8 +25,8 @@ public class CharacterList : MonoBehaviour {
         deleteCharacter.onClick.AddListener(DeleteCharacterFunc);
         back = GameObject.Find("BackButton").GetComponent<Button>();
         back.onClick.AddListener(backFunc);
-        /*EnterWorld = GameObject.Find("RealmsButton").GetComponent<Button>();
-        EnterWorld.onClick.AddListener(RealmsClick);*/
+        EnterWorld = GameObject.Find("EnterWorld").GetComponent<Button>();
+        EnterWorld.onClick.AddListener(enterWorld);
 
         if (AuthHandler.CharacterCount > 0)
         {
@@ -59,6 +60,11 @@ public class CharacterList : MonoBehaviour {
                 DeleteCharacterButton.color = Color.grey;
             }
         }
+    }
+
+    void enterWorld()
+    {
+        SceneManager.LoadScene("World");
     }
 
     void deleteConfirmfunc()
