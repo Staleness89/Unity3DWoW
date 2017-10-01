@@ -158,20 +158,15 @@ public class AuthSocket
 
         switch (result)
         {
-            case AuthResult.WOW_SUCCESS:
-                break;
             case AuthResult.WOW_FAIL_BANNED:
                 Global.showNotifyBox("This account has been closed and is no longer available for use.", "Okay");
                 return;
-                break;
             case AuthResult.WOW_FAIL_UNKNOWN_ACCOUNT:
                 Global.showNotifyBox("Unknown Account/Invalid Password.", "Okay");
                 return;
-                break;
             case AuthResult.WOW_FAIL_INCORRECT_PASSWORD:
                 Global.showNotifyBox("Unknown Account/Invalid Password.", "Okay");
                 return;
-                break;
             default:
                 break;
         }
