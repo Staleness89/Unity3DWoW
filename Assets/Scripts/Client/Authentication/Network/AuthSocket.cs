@@ -319,20 +319,17 @@ namespace Client.Authentication.Network
             WorldServerList realmList = new WorldServerList(reader);
             Exchange.AuthMessage = "Connected";
 
-            if (LoginHelpers.LAST_KNOWN_REALM_LIST.Length > 1)
+            if (LoginHelpers.LAST_KNOWN_REALM_LIST.Length > 2)
             {
-                foreach (WorldServerInfo rl in Exchange.authClient.RealmServerList)
+                foreach (WorldServerInfo rl in Exchange.gameClient.RealmServerList)
                 {
                     if (rl.Name == LoginHelpers.LAST_KNOWN_REALM_LIST)
                     {
                         LoginHelpers.ConnectToWorld = true;
                         Exchange.CurrentRealm = rl;
-                        Exchange.authClient.ConnectTo(Exchange.CurrentRealm);
-                        break;
+                        Exchange.gameClient.ConnectTo(Exchange.CurrentRealm);
                     }
                 }
-
-                AuthFrame.ShowRealms = true;
             }
             else
             {

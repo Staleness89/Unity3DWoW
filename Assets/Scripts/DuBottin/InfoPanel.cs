@@ -15,7 +15,7 @@ public class InfoPanel : MonoBehaviour {
     // Use this for initialization
     void Start () {
         var guid = Convert.ToUInt64(this.name);
-        obj = Exchange.authClient.Objects[guid];        
+        obj = Exchange.gameClient.Objects[guid];        
     }
 
     public float RevertFromRadians(float angle)
@@ -26,7 +26,7 @@ public class InfoPanel : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (UnityEngine.GameObject.Find(obj .GUID.ToString()).GetComponent<Transform>().position != new Vector3(obj.Movement.Position.x, obj.Movement.Position.z, obj.Movement.Position.y) || obj.Movement.Orientation != -(Exchange.authClient.movementMgr.ConvertToRadians(transform.eulerAngles.y)) - 4.6f)
+        if (UnityEngine.GameObject.Find(obj .GUID.ToString()).GetComponent<Transform>().position != new Vector3(obj.Movement.Position.x, obj.Movement.Position.z, obj.Movement.Position.y) || obj.Movement.Orientation != -(Exchange.gameClient.movementMgr.ConvertToRadians(transform.eulerAngles.y)) - 4.6f)
         {
             Vector3 pos = Vector3.MoveTowards(UnityEngine.GameObject.Find(obj.GUID.ToString()).GetComponent<Transform>().position, new Vector3(obj.Movement.Position.x, obj.Movement.Position.z, obj.Movement.Position.y), obj.MovementSpeed() * Time.deltaTime);
             UnityEngine.GameObject.Find(obj.GUID.ToString()).GetComponent<Rigidbody>().MovePosition(pos);
@@ -41,113 +41,6 @@ public class InfoPanel : MonoBehaviour {
 
     public void OnMouseOver()
     {
-        if (this.obj is Unit)
-        {
-            Unit unit = this.obj as Unit;
-
-            UnitFlags flags = (UnitFlags)unit.UnitFlags;
-            UnitFlags2 flags2 = (UnitFlags2)unit.UnitFlags2;
-            NPCFlags NpcFlags = (NPCFlags)unit.NpcFlags;
-
-            if (NpcFlags.HasAnyFlag(NPCFlags.Gossip))
-            {
-                float distance = Vector3.Distance(UnityEngine.GameObject.Find(Exchange.authClient.Player.GUID.ToString()).transform.position, UnityEngine.GameObject.Find(Exchange.authClient.Player.Target.GUID.ToString()).transform.position);
-
-                if (distance > 4)
-                {
-                    Texture2D texture2D = Resources.Load("Images/login/speak") as Texture2D;
-                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
-                }
-                else
-                {
-                    Texture2D texture2D = Resources.Load("Images/login/speak") as Texture2D;
-                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
-                }
-            }
-
-            if (NpcFlags.HasAnyFlag(NPCFlags.QuestGiver))
-            {
-                float distance = Vector3.Distance(UnityEngine.GameObject.Find(Exchange.authClient.Player.GUID.ToString()).transform.position, UnityEngine.GameObject.Find(Exchange.authClient.Player.Target.GUID.ToString()).transform.position);
-                
-                if (distance > 4)
-                {
-                    Texture2D texture2D = Resources.Load("Images/login/unablequest") as Texture2D;
-                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
-                }
-                else
-                {
-                    Texture2D texture2D = Resources.Load("Images/login/quest") as Texture2D;
-                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
-                }                
-            }
-
-            if (NpcFlags.HasAnyFlag(NPCFlags.SpiritHealer))
-            {
-                float distance = Vector3.Distance(UnityEngine.GameObject.Find(Exchange.authClient.Player.GUID.ToString()).transform.position, UnityEngine.GameObject.Find(Exchange.authClient.Player.Target.GUID.ToString()).transform.position);
-
-                if (distance > 4)
-                {
-                    Texture2D texture2D = Resources.Load("Images/login/speak") as Texture2D;
-                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
-                }
-                else
-                {
-                    Texture2D texture2D = Resources.Load("Images/login/speak") as Texture2D;
-                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
-                }
-                
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            if (this.obj is GameObject)
-                return;
-
-            if (Exchange.authClient.Player.Target == this.obj)
-                return;
-
-            if(Exchange.authClient.Player.Target != null)
-                UnityEngine.GameObject.Find(Exchange.authClient.Player.Target.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = false;
-
-            UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = true;
-            //UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().color = Color.red;
-            Exchange.authClient.ThreadHelper.playAudio(obj, "interface/iselecttarget").Play();
-            Exchange.authClient.ThreadHelper.setTarget(this.obj);
-        }
-
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            if (Exchange.authClient.Player.Target != this.obj)
-            {
-                if (Exchange.authClient.Player.Target != null)
-                    UnityEngine.GameObject.Find(Exchange.authClient.Player.Target.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = false;
-
-                UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = true;
-                //UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().color = Color.red;
-                Exchange.authClient.ThreadHelper.playAudio(obj, "interface/iselecttarget").Play();
-                Exchange.authClient.ThreadHelper.setTarget(this.obj);
-            }
-
-            float distance = Vector3.Distance(UnityEngine.GameObject.Find(Exchange.authClient.Player.GUID.ToString()).transform.position, UnityEngine.GameObject.Find(Exchange.authClient.Player.Target.GUID.ToString()).transform.position);
-
-            if (distance > 4)
-            {
-                System.Random random = new System.Random();
-                int[] AudioFile = new int[3] { 2, 4, 5 };
-                int slot = AudioFile[random.Next(0, AudioFile.Length)];
-
-                Exchange.authClient.ThreadHelper.playAudio(Exchange.authClient.Player, "character/" +
-                Exchange.authClient.Player.Race.ToString() + "/" +
-                Exchange.authClient.Player.Race.ToString() +
-                Exchange.authClient.Player.Gender.ToString() + "errormessages/" +
-                Exchange.authClient.Player.Race.ToString() +
-                Exchange.authClient.Player.Gender.ToString() + "_err_outofrange0" + slot.ToString()).Play();
-
-                return;
-            }
-        }
-                
         if (!UnityEngine.GameObject.Find("InfoPanel"))
         {
             UnityEngine.GameObject tempAuth = Instantiate(Resources.Load("InfoPanel") as UnityEngine.GameObject, new Vector3(Screen.width - 50, 100, 0), Quaternion.identity);
@@ -175,7 +68,7 @@ public class InfoPanel : MonoBehaviour {
                         Text temo = t.gameObject.GetComponent<Text>();
                         if (obj is Unit)
                         {
-                            if(unit.Health <= 0)
+                            if (unit.Health <= 0)
                             {
                                 temo.text = unit.Level.ToString() + " (Corpse)";
                             }
@@ -204,6 +97,92 @@ public class InfoPanel : MonoBehaviour {
                 }
             }
         }
+
+        if (this.obj is Unit)
+        {
+            Unit unit = this.obj as Unit;
+
+            UnitFlags flags = (UnitFlags)unit.UnitFlags;
+            UnitFlags2 flags2 = (UnitFlags2)unit.UnitFlags2;
+            NPCFlags NpcFlags = (NPCFlags)unit.NpcFlags;
+
+            float distance = Vector3.Distance(UnityEngine.GameObject.Find(Exchange.gameClient.Player.GUID.ToString()).transform.position, transform.position);
+
+            if (NpcFlags.HasAnyFlag(NPCFlags.Gossip))
+            {
+                if (distance > 4)
+                {
+                    Texture2D texture2D = Resources.Load("Images/login/speak") as Texture2D;
+                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
+                }
+                else
+                {
+                    Texture2D texture2D = Resources.Load("Images/login/speak") as Texture2D;
+                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
+                }
+            }
+
+            if (NpcFlags.HasAnyFlag(NPCFlags.QuestGiver))
+            {
+                if (distance > 4)
+                {
+                    Texture2D texture2D = Resources.Load("Images/login/unablequest") as Texture2D;
+                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
+                }
+                else
+                {
+                    Texture2D texture2D = Resources.Load("Images/login/quest") as Texture2D;
+                    Cursor.SetCursor(texture2D, Vector2.zero, CursorMode.Auto);
+                }
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            if (this.obj is GameObject)
+                return;
+
+            if (Exchange.gameClient.Player.Target == this.obj)
+                return;
+
+            if(Exchange.gameClient.Player.Target != null)
+                UnityEngine.GameObject.Find(Exchange.gameClient.Player.Target.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = false;
+
+            UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = true;
+            //UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().color = Color.red;
+            Exchange.gameClient.ThreadHelper.playAudio(obj, "interface/iselecttarget").Play();
+            Exchange.gameClient.ThreadHelper.setTarget(this.obj);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            if (Exchange.gameClient.Player.Target != this.obj)
+            {
+                if (Exchange.gameClient.Player.Target != null)
+                    UnityEngine.GameObject.Find(Exchange.gameClient.Player.Target.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = false;
+
+                UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().enabled = true;
+                //UnityEngine.GameObject.Find(obj.GUID.ToString() + "targetSelectUnderlay").GetComponent<SpriteRenderer>().color = Color.red;
+                Exchange.gameClient.ThreadHelper.playAudio(obj, "interface/iselecttarget").Play();
+                Exchange.gameClient.ThreadHelper.setTarget(this.obj);
+            }
+
+            float distance = Vector3.Distance(UnityEngine.GameObject.Find(Exchange.gameClient.Player.GUID.ToString()).transform.position, UnityEngine.GameObject.Find(Exchange.gameClient.Player.Target.GUID.ToString()).transform.position);
+
+            if (distance > 4)
+            {
+                System.Random random = new System.Random();
+                int[] AudioFile = new int[3] { 2, 4, 5 };
+                int slot = AudioFile[random.Next(0, AudioFile.Length)];
+
+                Exchange.gameClient.ThreadHelper.playAudio(Exchange.gameClient.Player, "character/" +
+                Exchange.gameClient.Player.Race.ToString() + "/" +
+                Exchange.gameClient.Player.Race.ToString() +
+                Exchange.gameClient.Player.Gender.ToString() + "errormessages/" +
+                Exchange.gameClient.Player.Race.ToString() +
+                Exchange.gameClient.Player.Gender.ToString() + "_err_outofrange0" + slot.ToString()).Play();
+            }
+        }         
     }
 
     public void OnMouseExit()

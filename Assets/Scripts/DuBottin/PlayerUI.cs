@@ -16,26 +16,26 @@ public class PlayerUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Exchange.authClient.Player != null)
+        if (Exchange.gameClient.Player != null)
         {
-            uint healthPercent = (Exchange.authClient.Player.Health * 200 + Exchange.authClient.Player.MaxHealth) / (Exchange.authClient.Player.MaxHealth * 2);
+            uint healthPercent = (Exchange.gameClient.Player.Health * 200 + Exchange.gameClient.Player.MaxHealth) / (Exchange.gameClient.Player.MaxHealth * 2);
             playerHealth.fillAmount = healthPercent / 100f;
         }
 
-        if (Exchange.authClient.Player.Target != null)
+        if (Exchange.gameClient.Player.Target != null)
         {
             targetHealth = UnityEngine.GameObject.Find("targethealthBar").GetComponent<Image>();
 
-            if (Exchange.authClient.Player.Target is Unit)
+            if (Exchange.gameClient.Player.Target is Unit)
             {
-                Unit unit = Exchange.authClient.Objects[Exchange.authClient.Player.Target.GUID] as Unit;
+                Unit unit = Exchange.gameClient.Objects[Exchange.gameClient.Player.Target.GUID] as Unit;
                 uint healthPercent = (unit.Health * 200 + unit.MaxHealth) / (unit.MaxHealth * 2);
                 targetHealth.fillAmount = healthPercent / 100f;
             }
 
-            if (Exchange.authClient.Player.Target is Player)
+            if (Exchange.gameClient.Player.Target is Player)
             {
-                Player player = Exchange.authClient.Objects[Exchange.authClient.Player.Target.GUID] as Player;
+                Player player = Exchange.gameClient.Objects[Exchange.gameClient.Player.Target.GUID] as Player;
                 uint healthPercent = (player.Health * 200 + player.MaxHealth) / (player.MaxHealth * 2);
                 targetHealth.fillAmount = healthPercent / 100f;
             }

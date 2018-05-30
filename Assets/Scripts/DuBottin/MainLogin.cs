@@ -27,7 +27,7 @@ public class MainLogin : MonoBehaviour {
         lastRealm = UnityEngine.GameObject.Find("LastRealm").GetComponent<Text>();
         lastRealm.text = LoginHelpers.LAST_KNOWN_REALM_LIST;
 
-        Exchange.authClient = null;
+        Exchange.gameClient = null;
     }
 
     public static UnityEngine.GameObject LoadPrefab(string i)
@@ -61,8 +61,8 @@ public class MainLogin : MonoBehaviour {
             Exchange.Username = Account;
             Exchange.Password = Password;
             
-            Exchange.authClient = new AutomatedGame("127.0.0.1", 3724, Exchange.Username, Exchange.Password);
-            Exchange.authClient.Start();
+            Exchange.gameClient = new AutomatedGame(LoginHelpers.REALM_LIST_ADDRESS, 3724, Exchange.Username, Exchange.Password);
+            Exchange.gameClient.Start();
         }
     }
  

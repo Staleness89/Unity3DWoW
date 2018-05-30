@@ -14,22 +14,22 @@ namespace Client.Authentication
             reader.ReadUInt32();
 
             Count = reader.ReadUInt16();
-            Exchange.authClient.RealmServerList = new WorldServerInfo[Count];
+            Exchange.gameClient.RealmServerList = new WorldServerInfo[Count];
 
             for (int i = 0; i < Count; ++i)
-                Exchange.authClient.RealmServerList[i] = new WorldServerInfo(reader);
+                Exchange.gameClient.RealmServerList[i] = new WorldServerInfo(reader);
         }
 
         public WorldServerInfo this[int index]
         {
-            get { return Exchange.authClient.RealmServerList[index]; }
+            get { return Exchange.gameClient.RealmServerList[index]; }
         }
 
         #region IEnumerable<WorldServerInfo> Members
 
         public IEnumerator<WorldServerInfo> GetEnumerator()
         {
-            foreach (WorldServerInfo server in Exchange.authClient.RealmServerList)
+            foreach (WorldServerInfo server in Exchange.gameClient.RealmServerList)
                 yield return server;
         }
 
@@ -39,7 +39,7 @@ namespace Client.Authentication
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            foreach (WorldServerInfo realm in Exchange.authClient.RealmServerList)
+            foreach (WorldServerInfo realm in Exchange.gameClient.RealmServerList)
                 yield return realm;
         }
 

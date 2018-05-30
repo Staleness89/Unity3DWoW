@@ -43,8 +43,8 @@ public class CharacterUI : MonoBehaviour {
 
     public void BackFun()
     {
-        if (Exchange.authClient != null)
-            Exchange.authClient.Exit();
+        if (Exchange.gameClient != null)
+            Exchange.gameClient.Exit();
 
         LoginHelpers.tryingToLogin = false;
         
@@ -72,8 +72,8 @@ public class CharacterUI : MonoBehaviour {
     {
         OutPacket packet = new OutPacket(WorldCommand.CMSG_PLAYER_LOGIN);
         packet.Write(Exchange.SelectedCharacter.GUID);
-        Exchange.authClient.SendPacket(packet);
-
+        Exchange.gameClient.SendPacket(packet);
+        Exchange.playerIsInGame = true;
         UnityEngine.GameObject.Find("GameObject").name = Exchange.SelectedCharacter.GUID.ToString();
         UnityEngine.GameObject.Find(Exchange.SelectedCharacter.GUID.ToString()).GetComponent<Transform>().position = new Vector3(Exchange.SelectedCharacter.X, Exchange.SelectedCharacter.Z, Exchange.SelectedCharacter.Y);
         Destroy(UnityEngine.GameObject.Find("CharacterUI"));

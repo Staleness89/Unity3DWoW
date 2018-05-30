@@ -14,8 +14,8 @@ namespace Client.World.Network
             var ukn = packet.ReadByte();
             var name = packet.ReadCString();
 
-            WorldObject[] worldObjects = new WorldObject[Exchange.authClient.Objects.Count];
-            Exchange.authClient.Objects.Values.CopyTo(worldObjects, 0);
+            WorldObject[] worldObjects = new WorldObject[Exchange.gameClient.Objects.Count];
+            Exchange.gameClient.Objects.Values.CopyTo(worldObjects, 0);
 
             foreach (WorldObject obj in worldObjects)
             {
@@ -78,8 +78,8 @@ namespace Client.World.Network
 
             var size = packet.ReadSingle();
 
-            WorldObject[] worldObjects = new WorldObject[Exchange.authClient.Objects.Count];
-            Exchange.authClient.Objects.Values.CopyTo(worldObjects, 0);
+            WorldObject[] worldObjects = new WorldObject[Exchange.gameClient.Objects.Count];
+            Exchange.gameClient.Objects.Values.CopyTo(worldObjects, 0);
 
             foreach (WorldObject obj in worldObjects)
             {
@@ -124,8 +124,8 @@ namespace Client.World.Network
 
             uint movementId = packet.ReadUInt32();
 
-            WorldObject[] worldObjects = new WorldObject[Exchange.authClient.Objects.Count];
-            Exchange.authClient.Objects.Values.CopyTo(worldObjects, 0);
+            WorldObject[] worldObjects = new WorldObject[Exchange.gameClient.Objects.Count];
+            Exchange.gameClient.Objects.Values.CopyTo(worldObjects, 0);
 
             foreach (WorldObject obj in worldObjects)
             {
@@ -181,8 +181,8 @@ namespace Client.World.Network
 
             var RequiredRepFaction = packet.ReadUInt32();
 
-            WorldObject[] worldObjects = new WorldObject[Exchange.authClient.Objects.Count];
-            Exchange.authClient.Objects.Values.CopyTo(worldObjects, 0);
+            WorldObject[] worldObjects = new WorldObject[Exchange.gameClient.Objects.Count];
+            Exchange.gameClient.Objects.Values.CopyTo(worldObjects, 0);
 
             foreach (WorldObject obj in worldObjects)
             {

@@ -21,14 +21,14 @@ public class RealmListObject : MonoBehaviour {
 
     public static void selectRealm(UnityEngine.GameObject gameObject)
     {
-        foreach (WorldServerInfo rl in Exchange.authClient.RealmServerList)
+        foreach (WorldServerInfo rl in Exchange.gameClient.RealmServerList)
         {
             var sprite = Resources.Load<Sprite>("Trans");
             Image realmSelect = UnityEngine.GameObject.Find(rl.Name + "RealmSelect" + rl.ID).GetComponent<Image>();
             realmSelect.sprite = sprite;
         }
 
-        foreach (WorldServerInfo rl in Exchange.authClient.RealmServerList)
+        foreach (WorldServerInfo rl in Exchange.gameClient.RealmServerList)
         {
             if (rl.Name == gameObject.name)
             {

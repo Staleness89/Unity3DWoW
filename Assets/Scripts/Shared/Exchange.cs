@@ -13,8 +13,9 @@ namespace Assets.Scripts.Shared
     public static class Exchange
     {
         //public static Realm currRealm;
-        public static AutomatedGame authClient = null;
+        public static AutomatedGame gameClient = null;
         public static bool connected = false;
+        public static bool playerIsInGame = false;
         public static string selectedRace = "";
         public static string selectedClass = "";
         public static string selectedGender = "";

@@ -18,7 +18,7 @@ public class RealmListFrame : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        showRealmList(Exchange.authClient.RealmServerList);
+        showRealmList(Exchange.gameClient.RealmServerList);
         Cancel = UnityEngine.GameObject.Find("CancelRealmList").GetComponent<Button>();
         Cancel.onClick.AddListener(cancelRealm);
 
@@ -178,13 +178,13 @@ public class RealmListFrame : MonoBehaviour {
         MainLoginUI.transform.localScale = new Vector3(1, 1, 1);
         MainLoginUI.name = "AuthFrame";
 
-        Exchange.authClient.ConnectTo(Exchange.CurrentRealm);
+        Exchange.gameClient.ConnectTo(Exchange.CurrentRealm);
         Destroy(UnityEngine.GameObject.Find("RealmList"));
     }
 
     public void cancelRealm()
     {
-        Exchange.authClient.Exit();
+        Exchange.gameClient.Exit();
         UnityEngine.GameObject MainLoginUI = Instantiate(Resources.Load<UnityEngine.GameObject>("MainUI"), new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
         MainLoginUI.transform.SetParent(UnityEngine.GameObject.Find("Canvas").gameObject.transform);
         MainLoginUI.transform.localScale = new Vector3(1, 1, 1);

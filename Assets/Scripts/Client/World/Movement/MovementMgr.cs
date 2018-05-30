@@ -35,7 +35,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_HEARTBEAT)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -43,7 +43,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_FALL_LAND)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 fallTime = time,
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -76,7 +76,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_STOP_TURN)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -96,7 +96,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_START_TURN_LEFT)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -104,7 +104,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -116,7 +116,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_START_TURN_RIGHT)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -125,7 +125,7 @@ namespace Assets.Scripts.Client.World.Movement
                 O = Orientation
             };
 
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -137,7 +137,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_STOP)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -145,7 +145,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -157,7 +157,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_JUMP)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -165,7 +165,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -177,7 +177,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_START_FORWARD)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -185,7 +185,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();
@@ -196,7 +196,7 @@ namespace Assets.Scripts.Client.World.Movement
 
             var startMoving = new MovementPacket(WorldCommand.MSG_MOVE_SET_FACING)
             {
-                GUID = Exchange.authClient.Player.GUID,
+                GUID = Exchange.gameClient.Player.GUID,
                 flags = (MovementFlags)Flags.MoveFlags,
                 flags2 = (MovementFlags2)Flags.MoveFlags2,
                 X = o.x,
@@ -204,7 +204,7 @@ namespace Assets.Scripts.Client.World.Movement
                 Z = o.y,
                 O = Orientation
             };
-            Exchange.authClient.SendPacket(startMoving);
+            Exchange.gameClient.SendPacket(startMoving);
 
             Flags.Clear();
             Flags.Clear2();

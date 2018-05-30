@@ -13,7 +13,7 @@ public class LoginHelpers : MonoBehaviour {
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
     public static bool tryingToLogin = false;
-    public static string REALM_LIST_ADDRESS = "186.2.164.192";
+    public static string REALM_LIST_ADDRESS = "127.0.0.1";
     public static string LAST_KNOWN_REALM_LIST = " ";
     public static bool ConnectToWorld = false;
     public static List<WorldObject> objects;
@@ -68,7 +68,7 @@ public class LoginHelpers : MonoBehaviour {
         {
             if (UnityEngine.GameObject.Find("targetFrame"))
             {
-                Exchange.authClient.ThreadHelper.removeTarget(Exchange.authClient.Player.Target);
+                Exchange.gameClient.ThreadHelper.removeTarget(Exchange.gameClient.Player.Target);
                 return;
             }
         }

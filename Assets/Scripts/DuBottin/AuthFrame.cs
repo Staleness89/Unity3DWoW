@@ -22,8 +22,8 @@ public class AuthFrame : MonoBehaviour {
 	    
     void Cancel()
     {
-        if (Exchange.authClient != null)
-            Exchange.authClient.Exit();
+        if (Exchange.gameClient != null)
+            Exchange.gameClient.Exit();
 
         LoginHelpers.tryingToLogin = false;
 

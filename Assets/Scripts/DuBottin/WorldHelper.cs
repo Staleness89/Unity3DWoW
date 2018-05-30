@@ -130,7 +130,7 @@ public class WorldHelper : MonoBehaviour
         if (UnityEngine.GameObject.Find("targetFrame"))
             Destroy(UnityEngine.GameObject.Find("targetFrame"));
 
-        Exchange.authClient.Player.Target = obj;
+        Exchange.gameClient.Player.Target = obj;
 
         var frame = Resources.Load("targetFrame") as UnityEngine.GameObject;
         UnityEngine.GameObject targetFrame = Instantiate(frame, new Vector3(frame.transform.position.x, frame.transform.position.y, 0), Quaternion.identity);
@@ -185,7 +185,7 @@ public class WorldHelper : MonoBehaviour
 
         var packet = new OutPacket(WorldCommand.CMSG_SET_SELECTION);
         packet.Write(obj.GUID);
-        Exchange.authClient.SendPacket(packet);
+        Exchange.gameClient.SendPacket(packet);
     }
 
     public void removeTarget(WorldObject obj)
@@ -193,7 +193,7 @@ public class WorldHelper : MonoBehaviour
         if (UnityEngine.GameObject.Find("targetFrame"))
             Destroy(UnityEngine.GameObject.Find("targetFrame"));
 
-        Exchange.authClient.Player.Target = null;
+        Exchange.gameClient.Player.Target = null;
     }
 
     public AudioSource playAudio(WorldObject obj, string path)

@@ -236,7 +236,7 @@ namespace Client
                 LoggedIn = false;
                 Running = false;
             }
-            Exchange.authClient = null;
+            Exchange.gameClient = null;
         }
 
         public void SendPacket(OutPacket packet)
@@ -903,12 +903,12 @@ namespace Client
 
                             if (guid == Exchange.SelectedCharacter.GUID)
                             {
-                                Exchange.authClient.Player = worldObject_Create as Player;
+                                Exchange.gameClient.Player = worldObject_Create as Player;
                             }
 
                             if (objectType == ObjectType.GameObject)
                             {
-                                Exchange.authClient.ThreadHelper.AddToWorld(worldObject_Create);
+                                Exchange.gameClient.ThreadHelper.AddToWorld(worldObject_Create);
                                 worldObject_Create = new WorldObject();
                                 OutPacket nameQuery = new OutPacket(WorldCommand.CMSG_GAMEOBJECT_QUERY);
                                 nameQuery.Write(game.Objects[guid].ObjectEntry);
@@ -925,7 +925,7 @@ namespace Client
 
                             if (objectType == ObjectType.Unit)
                             {
-                                Exchange.authClient.ThreadHelper.AddToWorld(worldObject_Create);
+                                Exchange.gameClient.ThreadHelper.AddToWorld(worldObject_Create);
                                 OutPacket CMSG_CREATURE_QUERY = new OutPacket(WorldCommand.CMSG_CREATURE_QUERY);
                                 CMSG_CREATURE_QUERY.Write(game.Objects[guid].ObjectEntry);
                                 CMSG_CREATURE_QUERY.Write(guid);
@@ -933,7 +933,7 @@ namespace Client
                             }
                             if (objectType == ObjectType.Player)
                             {
-                                Exchange.authClient.ThreadHelper.AddToWorld(worldObject_Create);
+                                Exchange.gameClient.ThreadHelper.AddToWorld(worldObject_Create);
                                 OutPacket nameQuery = new OutPacket(WorldCommand.CMSG_NAME_QUERY);
                                 nameQuery.Write(guid);
                                 game.SendPacket(nameQuery);

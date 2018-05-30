@@ -21,7 +21,7 @@ namespace Client.World.Network
                 Factions factions = new Factions();
                 factions.FactionID = packet.ReadUInt32(); //Faction Id
                 factions.ReputationRank = packet.ReadUInt32(); //Reputation Rank
-                Exchange.authClient.FactionList.Add(factions.FactionID, factions);
+                Exchange.gameClient.FactionList.Add(factions.FactionID, factions);
             }
         }
 
