@@ -68,7 +68,11 @@ public class InfoPanel : MonoBehaviour {
                         Text temo = t.gameObject.GetComponent<Text>();
                         if (obj is Unit)
                         {
+<<<<<<< HEAD
                             if (unit.Health <= 0)
+=======
+                            if(unit.Health <= 0)
+>>>>>>> 996a9358ec1c87034a5567dc0f41cd27073512cb
                             {
                                 temo.text = unit.Level.ToString() + " (Corpse)";
                             }
@@ -97,7 +101,11 @@ public class InfoPanel : MonoBehaviour {
                 }
             }
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 996a9358ec1c87034a5567dc0f41cd27073512cb
         if (this.obj is Unit)
         {
             Unit unit = this.obj as Unit;
@@ -175,12 +183,21 @@ public class InfoPanel : MonoBehaviour {
                 int[] AudioFile = new int[3] { 2, 4, 5 };
                 int slot = AudioFile[random.Next(0, AudioFile.Length)];
 
+<<<<<<< HEAD
                 Exchange.gameClient.ThreadHelper.playAudio(Exchange.gameClient.Player, "character/" +
                 Exchange.gameClient.Player.Race.ToString() + "/" +
                 Exchange.gameClient.Player.Race.ToString() +
                 Exchange.gameClient.Player.Gender.ToString() + "errormessages/" +
                 Exchange.gameClient.Player.Race.ToString() +
                 Exchange.gameClient.Player.Gender.ToString() + "_err_outofrange0" + slot.ToString()).Play();
+=======
+                Exchange.authClient.ThreadHelper.playAudio(Exchange.authClient.Player, "character/" +
+                Exchange.authClient.Player.Race.ToString() + "/" +
+                Exchange.authClient.Player.Race.ToString() +
+                Exchange.authClient.Player.Gender.ToString() + "errormessages/" +
+                Exchange.authClient.Player.Race.ToString() +
+                Exchange.authClient.Player.Gender.ToString() + "_err_outofrange0" + slot.ToString()).Play();
+>>>>>>> 996a9358ec1c87034a5567dc0f41cd27073512cb
             }
         }         
     }
