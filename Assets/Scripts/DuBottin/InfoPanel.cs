@@ -41,6 +41,63 @@ public class InfoPanel : MonoBehaviour {
 
     public void OnMouseOver()
     {
+        if (!UnityEngine.GameObject.Find("InfoPanel"))
+        {
+            UnityEngine.GameObject tempAuth = Instantiate(Resources.Load("InfoPanel") as UnityEngine.GameObject, new Vector3(Screen.width - 50, 100, 0), Quaternion.identity);
+            tempAuth.transform.SetParent(UnityEngine.GameObject.Find("Canvas").gameObject.transform);
+            tempAuth.transform.localScale = new Vector3(1, 1, 1);
+            tempAuth.name = "InfoPanel";
+
+            targetHealth = UnityEngine.GameObject.Find("targethealthBarInfo").GetComponent<Image>();
+            targetHealth.fillAmount = 0f;
+
+            Transform[] ts = tempAuth.transform.GetComponentsInChildren<Transform>(true);
+            foreach (Transform t in ts)
+            {
+                if (t.gameObject.name == "InfoPanelName")
+                {
+                    Text temo = t.gameObject.GetComponent<Text>();
+                    temo.text = obj.Name;
+                }
+
+                if (obj is Unit)
+                {
+                    unit = obj as Unit;
+                    if (t.gameObject.name == "InfoPanelLevel")
+                    {
+                        Text temo = t.gameObject.GetComponent<Text>();
+                        if (obj is Unit)
+                        {
+                            if(unit.Health <= 0)
+                            {
+                                temo.text = unit.Level.ToString() + " (Corpse)";
+                            }
+                            else
+                            {
+                                temo.text = unit.Level.ToString();
+                            }
+                        }
+                    }
+
+                    uint healthPercent = (unit.Health * 200 + unit.MaxHealth) / (unit.MaxHealth * 2);
+                    targetHealth.fillAmount = healthPercent / 100f;
+                }
+
+                if (obj is Player)
+                {
+                    player = obj as Player;
+                    if (t.gameObject.name == "InfoPanelLevel")
+                    {
+                        Text temo = t.gameObject.GetComponent<Text>();
+                        temo.text = player.Level.ToString() + " " + player.Race + " " + player.Class;
+                    }
+
+                    uint healthPercent = (player.Health * 200 + player.MaxHealth) / (player.MaxHealth * 2);
+                    targetHealth.fillAmount = healthPercent / 100f;
+                }
+            }
+        }
+        
         if (this.obj is Unit)
         {
             Unit unit = this.obj as Unit;
@@ -143,65 +200,6 @@ public class InfoPanel : MonoBehaviour {
                 Exchange.authClient.Player.Gender.ToString() + "errormessages/" +
                 Exchange.authClient.Player.Race.ToString() +
                 Exchange.authClient.Player.Gender.ToString() + "_err_outofrange0" + slot.ToString()).Play();
-
-                return;
-            }
-        }
-                
-        if (!UnityEngine.GameObject.Find("InfoPanel"))
-        {
-            UnityEngine.GameObject tempAuth = Instantiate(Resources.Load("InfoPanel") as UnityEngine.GameObject, new Vector3(Screen.width - 50, 100, 0), Quaternion.identity);
-            tempAuth.transform.SetParent(UnityEngine.GameObject.Find("Canvas").gameObject.transform);
-            tempAuth.transform.localScale = new Vector3(1, 1, 1);
-            tempAuth.name = "InfoPanel";
-
-            targetHealth = UnityEngine.GameObject.Find("targethealthBarInfo").GetComponent<Image>();
-            targetHealth.fillAmount = 0f;
-
-            Transform[] ts = tempAuth.transform.GetComponentsInChildren<Transform>(true);
-            foreach (Transform t in ts)
-            {
-                if (t.gameObject.name == "InfoPanelName")
-                {
-                    Text temo = t.gameObject.GetComponent<Text>();
-                    temo.text = obj.Name;
-                }
-
-                if (obj is Unit)
-                {
-                    unit = obj as Unit;
-                    if (t.gameObject.name == "InfoPanelLevel")
-                    {
-                        Text temo = t.gameObject.GetComponent<Text>();
-                        if (obj is Unit)
-                        {
-                            if(unit.Health <= 0)
-                            {
-                                temo.text = unit.Level.ToString() + " (Corpse)";
-                            }
-                            else
-                            {
-                                temo.text = unit.Level.ToString();
-                            }
-                        }
-                    }
-
-                    uint healthPercent = (unit.Health * 200 + unit.MaxHealth) / (unit.MaxHealth * 2);
-                    targetHealth.fillAmount = healthPercent / 100f;
-                }
-
-                if (obj is Player)
-                {
-                    player = obj as Player;
-                    if (t.gameObject.name == "InfoPanelLevel")
-                    {
-                        Text temo = t.gameObject.GetComponent<Text>();
-                        temo.text = player.Level.ToString() + " " + player.Race + " " + player.Class;
-                    }
-
-                    uint healthPercent = (player.Health * 200 + player.MaxHealth) / (player.MaxHealth * 2);
-                    targetHealth.fillAmount = healthPercent / 100f;
-                }
             }
         }
     }
