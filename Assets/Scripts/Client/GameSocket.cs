@@ -20,7 +20,7 @@ namespace Client
 
         public IGame Game { get; protected set; }
 
-        protected TcpClient connection { get; set; }
+        public TcpClient connection { get; set; }
 
         public AuthenticationCrypto authenticationCrypto = new AuthenticationCrypto();
 

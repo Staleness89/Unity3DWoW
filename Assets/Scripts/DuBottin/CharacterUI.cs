@@ -28,8 +28,8 @@ public class CharacterUI : MonoBehaviour {
         Delete.onClick.AddListener(DeleteCharacter);
         EnterWorld = UnityEngine.GameObject.Find("EnterWorld").GetComponent<Button>();
         EnterWorld.onClick.AddListener(EnterWorldFun);
-                
 
+        Exchange.connected = true;
     }
 
     public void ListRealms()

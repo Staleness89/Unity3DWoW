@@ -6,6 +6,7 @@ using Assets.Scripts.Shared;
 using UnityEngine.UI;
 using Client.World;
 using Client.World.Network;
+using UnityEngine.SceneManagement;
 
 /// Author: Pim de Witte (pimdewitte.com) and contributors
 /// <summary>
@@ -16,7 +17,7 @@ public class WorldHelper : MonoBehaviour
 {
 
     private static readonly Queue<Action> _executionQueue = new Queue<Action>();
-
+    
     public void Update()
     {
         lock (_executionQueue)
@@ -24,6 +25,16 @@ public class WorldHelper : MonoBehaviour
             while (_executionQueue.Count > 0)
             {
                 _executionQueue.Dequeue().Invoke();
+            }
+        }
+
+        if (Exchange.connected)
+        {
+            if (!Exchange.IsConnected)
+            {
+                Exchange.gameClient.Exit();
+                Exchange.disconnected = true;
+                SceneManager.LoadScene("Main");
             }
         }
     }

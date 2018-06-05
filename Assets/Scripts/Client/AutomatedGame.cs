@@ -24,7 +24,7 @@ namespace Client
         #region Properties
         public bool Running { get; set; }
         public MovementMgr movementMgr = null;
-        GameSocket socket;
+        public GameSocket socket;
         public WorldHelper ThreadHelper;
         public BigInteger Key { get; private set; }
         public string Hostname { get; private set; }
@@ -232,6 +232,7 @@ namespace Client
             }
             else
             {
+                Exchange.connected = false;
                 Connected = false;
                 LoggedIn = false;
                 Running = false;

@@ -6,6 +6,7 @@ using Client.World.Network;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 namespace Assets.Scripts.Shared
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Shared
         //public static Realm currRealm;
         public static AutomatedGame gameClient = null;
         public static bool connected = false;
+        public static bool disconnected = false;
         public static bool playerIsInGame = false;
         public static string selectedRace = "";
         public static string selectedClass = "";
@@ -60,5 +62,41 @@ namespace Assets.Scripts.Shared
             return temp;
         }
 
+        public static bool IsConnected
+        {
+            get
+            {
+                try
+                {
+                    if (Exchange.gameClient.socket.connection != null && Exchange.gameClient.socket.connection.Client != null && Exchange.gameClient.socket.connection.Client.Connected)
+                    {
+                        // Detect if client disconnected
+                        if (Exchange.gameClient.socket.connection.Client.Poll(0, SelectMode.SelectRead))
+                        {
+                            byte[] buff = new byte[1];
+                            if (Exchange.gameClient.socket.connection.Client.Receive(buff, SocketFlags.Peek) == 0)
+                            {
+                                // Client disconnected
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

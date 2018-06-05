@@ -14,7 +14,7 @@ public class MainLogin : MonoBehaviour {
     Button Login;
     Button Cancel;
     Button Quit;
-
+    Button CancelButton;
 
     // Use this for initialization
     void Start()
@@ -28,6 +28,25 @@ public class MainLogin : MonoBehaviour {
         lastRealm.text = LoginHelpers.LAST_KNOWN_REALM_LIST;
 
         Exchange.gameClient = null;
+
+        if(Exchange.disconnected)
+        {
+            Exchange.disconnected = false;
+
+            UnityEngine.GameObject tempAuth = Instantiate(Resources.Load("AuthFrame") as UnityEngine.GameObject, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);
+            tempAuth.transform.SetParent(UnityEngine.GameObject.Find("Canvas").gameObject.transform);
+            tempAuth.transform.localScale = new Vector3(1, 1, 1);
+            tempAuth.name = "disconnectedFrame";
+            Exchange.AuthMessage = "You have been disconnected from the server.";
+            CancelButton = UnityEngine.GameObject.Find("AuthCancel").GetComponent<Button>();
+            CancelButton.onClick.AddListener(CloseDisconnect);
+        }
+    }
+
+    void CloseDisconnect()
+    {
+        Destroy(UnityEngine.GameObject.Find("disconnectedFrame"));
+        LoginHelpers.tryingToLogin = false;
     }
 
     public static UnityEngine.GameObject LoadPrefab(string i)
