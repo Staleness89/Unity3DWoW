@@ -1,4 +1,4 @@
-using Assets.Scripts.Shared;
+﻿using Assets.Scripts.Shared;
 using Client.Authentication;
 using System;
 using System.Collections;

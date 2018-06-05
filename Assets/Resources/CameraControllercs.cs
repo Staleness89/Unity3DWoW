@@ -54,9 +54,12 @@ public class CameraControllercs : MonoBehaviour {
     }
     void Update()
     {
+        if (!Exchange.playerIsInGame)
+            return;
+
         if (target == null)
         {
-            target = UnityEngine.GameObject.Find(Exchange.authClient.Player.GUID.ToString()) as UnityEngine.GameObject; 
+            target = UnityEngine.GameObject.Find(Exchange.gameClient.Player.GUID.ToString()) as UnityEngine.GameObject; 
             Debug.Log("Looking for Player");
         }
 
