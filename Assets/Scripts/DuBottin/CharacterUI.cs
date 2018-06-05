@@ -65,7 +65,11 @@ public class CharacterUI : MonoBehaviour {
 
     public void DeleteCharacter()
     {
-
+        var deleteUIframe = Resources.Load("delFrame") as UnityEngine.GameObject;
+        UnityEngine.GameObject delUI = Instantiate(deleteUIframe, new Vector3(deleteUIframe.transform.position.x, deleteUIframe.transform.position.y, deleteUIframe.transform.position.z), Quaternion.identity);
+        delUI.transform.SetParent(UnityEngine.GameObject.Find("Canvas").gameObject.transform, false);
+        delUI.transform.localScale = new Vector3(1, 1, 1);
+        delUI.name = "delUI";
     }
 
     public void EnterWorldFun()
@@ -92,8 +96,12 @@ public class CharacterUI : MonoBehaviour {
 		
         if(EnumResult)
         {
-            Destroy(UnityEngine.GameObject.Find("AuthFrame"));
             EnumResult = false;
+            Destroy(UnityEngine.GameObject.Find("AuthFrame"));
+
+            if (Exchange.characters.Length == 0)
+                return;
+
             foreach (Character character in Exchange.characters)
             {
                 UnityEngine.GameObject Character = Instantiate(Resources.Load("Character") as UnityEngine.GameObject, new Vector3(Screen.width / 2, Screen.height / 2, 0), Quaternion.identity);

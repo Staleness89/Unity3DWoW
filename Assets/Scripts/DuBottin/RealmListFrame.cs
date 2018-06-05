@@ -18,14 +18,17 @@ public class RealmListFrame : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        showRealmList(Exchange.gameClient.RealmServerList);
         Cancel = UnityEngine.GameObject.Find("CancelRealmList").GetComponent<Button>();
         Cancel.onClick.AddListener(cancelRealm);
 
         Accept = UnityEngine.GameObject.Find("OkayRealmList").GetComponent<Button>();
         Accept.onClick.AddListener(acceptRealm);
 
-
+        Invoke("addList", 1);
+    }
+    void addList()
+    {
+        showRealmList(Exchange.gameClient.RealmServerList);
     }
 
     // Update is called once per frame
@@ -43,7 +46,7 @@ public class RealmListFrame : MonoBehaviour {
                 if (rl != null)
                 {
                     UnityEngine.GameObject newRealm = Instantiate(Resources.Load("Realm") as UnityEngine.GameObject);
-                    newRealm.transform.parent = UnityEngine.GameObject.Find("Content").gameObject.transform;
+                    newRealm.transform.SetParent(UnityEngine.GameObject.Find("Content").gameObject.transform);
                     newRealm.transform.localScale = new Vector3(1, 1, 1);
                     newRealm.name = rl.Name;
 

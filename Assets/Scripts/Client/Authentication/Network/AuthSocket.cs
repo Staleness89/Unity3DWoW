@@ -21,10 +21,10 @@ namespace Client.Authentication.Network
         NetworkStream stream;
 
         private string Username;
-        private byte[] PasswordHash;
+        private readonly byte[] PasswordHash;
 
-        private string Hostname;
-        private int Port;
+        private readonly string Hostname;
+        private readonly int Port;
         int failedAuthentications;
         const int MAX_FAILED_AUTENTICATIONS = 10;
 

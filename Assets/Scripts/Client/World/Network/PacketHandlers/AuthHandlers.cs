@@ -74,8 +74,7 @@ namespace Client.World.Network
             }
             else
             {
-                //Game.UI.LogLine(string.Format("Authentication succeeded, but received response {0}", detail));
-                //Game.UI.Exit();
+                Exchange.AuthMessage = "Authentication succeeded, but received response " + detail;
             }
         }
 
@@ -86,7 +85,7 @@ namespace Client.World.Network
 
             if (count == 0)
             {
-                Game.NoCharactersFound();
+                CharacterUI.EnumResult = true;
             }
             else
             {
@@ -103,7 +102,6 @@ namespace Client.World.Network
                 {
                     Exchange.AuthMessage = "Error retrieving character list...";
                 }
-                //Game.UI.PresentCharacterList(characters);
             }
         }
     }

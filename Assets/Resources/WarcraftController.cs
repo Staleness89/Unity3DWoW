@@ -104,6 +104,8 @@ public class WarcraftController : MonoBehaviour
 
     void Update()
     {
+        if (!Exchange.playerIsInGame)
+            return;
 
         if (!isPlayerControlled)
         {
@@ -123,6 +125,9 @@ public class WarcraftController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!Exchange.playerIsInGame)
+            return;
+
         unitCollider.radius = 0.2f;
 
         if (jumping)
@@ -173,7 +178,7 @@ public class WarcraftController : MonoBehaviour
             }
 
             // Check roots and apply final move speed
-            inputVelocity *= Exchange.authClient.Player.Movement.RunSpeed;
+            inputVelocity *= Exchange.gameClient.Player.Movement.RunSpeed;
 
             // Jump!
             if (Input.GetButton("Jump") || jumping)
@@ -185,9 +190,9 @@ public class WarcraftController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space)) // && isnt doing other activities
             {
-                Exchange.authClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FALLING);
-                Exchange.authClient.movementMgr.SendMoveJump(transform.position, transform.rotation);
-                Exchange.authClient.movementMgr.SendHeartBeat(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FALLING);
+                Exchange.gameClient.movementMgr.SendMoveJump(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.SendHeartBeat(transform.position, transform.rotation);
             }
 
                 ApplyGroundedAnimations();
@@ -215,18 +220,18 @@ public class WarcraftController : MonoBehaviour
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
             if (Input.GetKeyDown(KeyCode.A)) // && isnt doing other activities
             {
-                Exchange.authClient.movementMgr.SendMoveLeft(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.SendMoveLeft(transform.position, transform.rotation);
             }
 
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
             if (Input.GetKeyDown(KeyCode.D)) // && isnt doing other activities
             {
-                Exchange.authClient.movementMgr.SendMoveRight(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.SendMoveRight(transform.position, transform.rotation);
             }
 
             if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) // && isnt doing other activities
             {
-                Exchange.authClient.movementMgr.SendStopTurn(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.SendStopTurn(transform.position, transform.rotation);
             }
         }
     }
@@ -249,26 +254,26 @@ public class WarcraftController : MonoBehaviour
             movementStatus = MovementStatus.Run;
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) // && isnt doing other activities
             {
-                Exchange.authClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
-                Exchange.authClient.movementMgr.MoveForward(transform.position, transform.rotation);               
+                Exchange.gameClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
+                Exchange.gameClient.movementMgr.MoveForward(transform.position, transform.rotation);               
             }
 
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))// && isnt doing other activities
             {
-                Exchange.authClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
-                Exchange.authClient.movementMgr.SendHeartBeat(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
+                Exchange.gameClient.movementMgr.SendHeartBeat(transform.position, transform.rotation);
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetMouseButton(1) || Input.GetMouseButton(0) && Input.GetKeyDown(KeyCode.Mouse1)) // && isnt doing other activities
             {
-                Exchange.authClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
-                Exchange.authClient.movementMgr.MoveForward(transform.position, transform.rotation);                
+                Exchange.gameClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
+                Exchange.gameClient.movementMgr.MoveForward(transform.position, transform.rotation);                
             }
 
             if (Input.GetMouseButton(0) && Input.GetMouseButton(1))
             {
-                Exchange.authClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
-                Exchange.authClient.movementMgr.SendHeartBeat(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.Flags.SetMoveFlag(MovementFlags.MOVEMENTFLAG_FORWARD);
+                Exchange.gameClient.movementMgr.SendHeartBeat(transform.position, transform.rotation);
             }
 
             if (inputVelocity.magnitude < 1)
@@ -279,7 +284,7 @@ public class WarcraftController : MonoBehaviour
             if (stopping)
             {
                 stopping = false;
-                Exchange.authClient.movementMgr.SendMoveStop(transform.position, transform.rotation);
+                Exchange.gameClient.movementMgr.SendMoveStop(transform.position, transform.rotation);
             }
             movementStatus = MovementStatus.Stand;
         }
@@ -325,7 +330,7 @@ public class WarcraftController : MonoBehaviour
                     unitRigidbody.AddForce(UnityEngine.Vector3.down * unitRigidbody.velocity.magnitude, ForceMode.VelocityChange);
                     groundNormal = hitInfo.normal;                    
                     grounded = true;
-                    Exchange.authClient.movementMgr.SendFallLand(transform.position, transform.rotation, (uint)fallTime.Elapsed.Milliseconds);
+                    Exchange.gameClient.movementMgr.SendFallLand(transform.position, transform.rotation, (uint)fallTime.Elapsed.Milliseconds);
                     fallTime.Stop();
                     fallTime.Reset();
                 }
@@ -341,7 +346,7 @@ public class WarcraftController : MonoBehaviour
                 if (falling)
                 {
                     falling = false;                    
-                    Exchange.authClient.movementMgr.SendFallLand(transform.position, transform.rotation, (uint)fallTime.Elapsed.Milliseconds);
+                    Exchange.gameClient.movementMgr.SendFallLand(transform.position, transform.rotation, (uint)fallTime.Elapsed.Milliseconds);
                     fallTime.Stop();
                     fallTime.Reset();
                 }
@@ -357,8 +362,8 @@ public class WarcraftController : MonoBehaviour
             groundNormal = UnityEngine.Vector3.up;
         }
 
-        if(Exchange.authClient.Player != null)
-            Exchange.authClient.Player.IsGrounded = grounded;
+        if(Exchange.gameClient.Player != null)
+            Exchange.gameClient.Player.IsGrounded = grounded;
 
         //if (TooSteep || OnEdge)
         //    unitCollider.material = GameManager.SlidingMaterial;

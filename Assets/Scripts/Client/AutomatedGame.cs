@@ -596,6 +596,25 @@ namespace Client
                 NoCharactersFound();
         }
 
+        [PacketHandler(WorldCommand.SMSG_CHAR_DELETE)]
+        protected void HandleCharDelete(InPacket packet)
+        {
+            var response = (CommandDetail)packet.ReadByte();
+
+            switch(response)
+            {
+                case CommandDetail.CHAR_DELETE_FAILED:
+                    break;
+                case CommandDetail.CHAR_DELETE_IN_PROGRESS:
+                    break;
+                case CommandDetail.CHAR_DELETE_SUCCESS:
+                    DeleteCharacter.deleteSuccessful = true;
+                    break;
+                case CommandDetail.CHAR_DELETE_FAILED_GUILD_LEADER:
+                    break;
+            }
+        }
+
         [PacketHandler(WorldCommand.SMSG_LOGOUT_RESPONSE)]
         protected void HandleLogoutResponse(InPacket packet)
         {
