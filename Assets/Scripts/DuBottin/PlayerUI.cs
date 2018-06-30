@@ -22,23 +22,25 @@ public class PlayerUI : MonoBehaviour {
             playerHealth.fillAmount = healthPercent / 100f;
         }
 
-        switch(Exchange.gameClient.Player.Target)
+	if (Exchange.gameClient.Player.Target != null)
         {
-            targetHealth = UnityEngine.GameObject.Find("targethealthBar").GetComponent<Image>();
+        	switch(Exchange.gameClient.Player.Target)
+        	{
+            		targetHealth = UnityEngine.GameObject.Find("targethealthBar").GetComponent<Image>();
 
-		case Unit:
-                	Unit unit = Exchange.gameClient.Objects[Exchange.gameClient.Player.Target.GUID] as Unit;
-                	uint healthPercent = (unit.Health * 200 + unit.MaxHealth) / (unit.MaxHealth * 2);
-                	targetHealth.fillAmount = healthPercent / 100f;
-			break;			
-		case Player:
-                	Player player = Exchange.gameClient.Objects[Exchange.gameClient.Player.Target.GUID] as Player;
-                	uint healthPercent = (player.Health * 200 + player.MaxHealth) / (player.MaxHealth * 2);
-                	targetHealth.fillAmount = healthPercent / 100f;
-			break;
-		default:
-			break;
-           
+			case Unit:
+                		Unit unit = Exchange.gameClient.Objects[Exchange.gameClient.Player.Target.GUID] as Unit;
+                		uint healthPercent = (unit.Health * 200 + unit.MaxHealth) / (unit.MaxHealth * 2);
+                		targetHealth.fillAmount = healthPercent / 100f;
+				break;			
+			case Player:
+                		Player player = Exchange.gameClient.Objects[Exchange.gameClient.Player.Target.GUID] as Player;
+                		uint healthPercent = (player.Health * 200 + player.MaxHealth) / (player.MaxHealth * 2);
+                		targetHealth.fillAmount = healthPercent / 100f;
+				break;
+			default:
+				break;
+		}
         }
     }
 }
