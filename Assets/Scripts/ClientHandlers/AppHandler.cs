@@ -15,7 +15,7 @@ public class AppHandler : MonoBehaviour
     public WorldSession _worldSession;
 
     public string REALM_LIST_ADDRESS = " ";
-    public string LAST_KNOWN_REALM_LIST = " ";
+    public string LAST_KNOWN_REALMNAME = " ";
     public int LAST_KNOWN_REALM_PORT = 0;
     public string LAST_KNOWN_MPQ_DATA_FOLDER = " ";
 
@@ -45,7 +45,7 @@ public class AppHandler : MonoBehaviour
         Instance = this;
 
         REALM_LIST_ADDRESS = "127.0.0.1";
-        LAST_KNOWN_REALM_LIST = " ";
+        LAST_KNOWN_REALMNAME = " ";
         LAST_KNOWN_REALM_PORT = 3724;
         LAST_KNOWN_MPQ_DATA_FOLDER = @Application.dataPath + "/Data/";
 
@@ -237,7 +237,7 @@ public class AppHandler : MonoBehaviour
             using (StreamWriter w = File.AppendText(path))
             {
                 w.WriteLine("REALM_LIST_ADDRESS " + REALM_LIST_ADDRESS);
-                w.WriteLine("LAST_KNOWN_REALM_LIST " + LAST_KNOWN_REALM_LIST);
+                w.WriteLine("LAST_KNOWN_REALMNAME " + LAST_KNOWN_REALMNAME);
                 w.WriteLine("LAST_KNOWN_REALM_PORT " + LAST_KNOWN_REALM_PORT.ToString());
                 w.WriteLine("LAST_KNOWN_MPQ_DATA_FOLDER " + LAST_KNOWN_MPQ_DATA_FOLDER);
             }
@@ -251,9 +251,9 @@ public class AppHandler : MonoBehaviour
             {
                 REALM_LIST_ADDRESS = line.Substring(19);
             }
-            if (line.Contains("LAST_KNOWN_REALM_LIST "))
+            if (line.Contains("LAST_KNOWN_REALMNAME "))
             {
-                LAST_KNOWN_REALM_LIST = line.Substring(22);
+                LAST_KNOWN_REALMNAME = line.Substring(21);
             }
             if (line.Contains("LAST_KNOWN_REALM_PORT "))
             {
@@ -275,7 +275,7 @@ public class AppHandler : MonoBehaviour
             using (StreamWriter w = File.AppendText(path))
             {
                 w.WriteLine("REALM_LIST_ADDRESS " + REALM_LIST_ADDRESS);
-                w.WriteLine("LAST_KNOWN_REALM_LIST " + LAST_KNOWN_REALM_LIST);
+                w.WriteLine("LAST_KNOWN_REALMNAME " + LAST_KNOWN_REALMNAME);
                 w.WriteLine("LAST_KNOWN_REALM_PORT " + LAST_KNOWN_REALM_PORT.ToString());
                 w.WriteLine("LAST_KNOWN_MPQ_DATA_FOLDER " + LAST_KNOWN_MPQ_DATA_FOLDER);
             }
@@ -288,7 +288,7 @@ public class AppHandler : MonoBehaviour
             using (StreamWriter w = File.AppendText(path))
             {
                 w.WriteLine("REALM_LIST_ADDRESS " + REALM_LIST_ADDRESS);
-                w.WriteLine("LAST_KNOWN_REALM_LIST " + LAST_KNOWN_REALM_LIST);
+                w.WriteLine("LAST_KNOWN_REALMNAME " + LAST_KNOWN_REALMNAME);
                 w.WriteLine("LAST_KNOWN_REALM_PORT " + LAST_KNOWN_REALM_PORT.ToString());
                 w.WriteLine("LAST_KNOWN_MPQ_DATA_FOLDER " + LAST_KNOWN_MPQ_DATA_FOLDER);
             }

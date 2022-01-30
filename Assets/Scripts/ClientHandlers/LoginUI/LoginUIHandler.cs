@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class LoginUIHandler : MonoBehaviour
 {
-    // Interface\GLUES\MODELS\UI_MainMenu_Northrend\UI_MainMenu_Northrend.M2 //MainUIBG
-    public List<Text> LoginGlueTexts;
+    public List<TMP_Text> LoginGlueTexts;
     public List<Button> LoginGlueButtons;
     public List<InputField> LoginGlueInputFields;
     public List<Image> LoginUIImages;
+    public List<GameObject> LoginUIPanels;
     public AudioSource Audio;
     public Camera camera;
     // Start is called before the first frame update
@@ -19,8 +21,12 @@ public class LoginUIHandler : MonoBehaviour
     {
         Audio.clip = WavUtility.ToAudioClip(AppHandler.Instance.SearchMPQ(@"Sound\Music\GlueScreenMusic\WotLK_main_title.mp3"));
         Audio.Play();
+
+        LoginGlueTexts.First(m => m.name == "RealmName").text = AppHandler.Instance.LAST_KNOWN_REALMNAME;
+
         BuildBackground();
         BuildLoginUI();
+        BuildDialogUI();
     }
     void BuildBackground()
     {
@@ -113,6 +119,72 @@ public class LoginUIHandler : MonoBehaviour
             }
         }
     }
+    void BuildDialogUI()
+    {
+        Texture2D borderImage = BLPLoader.ToTex(AppHandler.Instance.SearchMPQ(@"Interface\DialogFrame\UI-DialogBox-Border.blp"));
+
+        Sprite Top = Sprite.Create(borderImage, new Rect(48, 0, 15, 32), new Vector2(0, 0));
+        Sprite Bottom = Sprite.Create(borderImage, new Rect(0, 0, 17, 32), new Vector2(0, 0));
+        Sprite Left = Sprite.Create(borderImage, new Rect(65, 0, 17, 32), new Vector2(0, 0));
+        Sprite Right = Sprite.Create(borderImage, new Rect(112, 0, 16, 32), new Vector2(0, 0));
+        Sprite TLC = Sprite.Create(borderImage, new Rect(159, 0, 32, 31), new Vector2(0, 0));
+        Sprite BLC = Sprite.Create(borderImage, new Rect(129, 0, 30, 31), new Vector2(0, 0));
+        Sprite TRC = Sprite.Create(borderImage, new Rect(230, 1, 26, 31), new Vector2(0, 0));
+        Sprite BRC = Sprite.Create(borderImage, new Rect(192, 0, 30, 32), new Vector2(0, 0));
+
+        LoginUIImages.First(m => m.name == "Top").sprite = Top;
+        LoginUIImages.First(m => m.name == "Bottom").sprite = Bottom;
+        LoginUIImages.First(m => m.name == "Left").sprite = Left;
+        LoginUIImages.First(m => m.name == "Right").sprite = Right;
+        LoginUIImages.First(m => m.name == "TLC").sprite = TLC;
+        LoginUIImages.First(m => m.name == "BLC").sprite = BLC;
+        LoginUIImages.First(m => m.name == "TRC").sprite = TRC;
+        LoginUIImages.First(m => m.name == "BRC").sprite = BRC;
+
+        LoginGlueTexts.First(m => m.name == "InfoText").text = "";
+    }
+    public void DisplayDialogUI(string textData = "", string buttononetext = "", string buttontwotext = "", UnityAction _buttonAction = null, UnityAction _buttonActiontwo = null, bool isDouble = false)
+    {
+        LoginGlueTexts.First(m => m.name == "InfoText").text = textData;
+
+        GameObject buttonOneObject = LoginGlueButtons.First(m => m.name == "Button1").gameObject;
+        GameObject buttonTwoObject = LoginGlueButtons.First(m => m.name == "Button2").gameObject;
+        GameObject buttonThreeObject = LoginGlueButtons.First(m => m.name == "Button0").gameObject;
+        buttonOneObject.SetActive(false);
+        buttonTwoObject.SetActive(false);
+        buttonThreeObject.SetActive(false);
+
+
+        if (isDouble)
+        {
+            buttonOneObject.SetActive(true);
+            buttonTwoObject.SetActive(true);
+
+            Button buttonOne = buttonOneObject.GetComponent<Button>();
+            Button buttonTwo = buttonTwoObject.GetComponent<Button>();
+            buttonOne.onClick.RemoveAllListeners();
+            buttonTwo.onClick.RemoveAllListeners();
+            SceneHandler.GetChildByName(buttonOneObject, "Text").GetComponent<Text>().text = buttononetext;
+            buttonOne.onClick.AddListener(_buttonAction);
+            SceneHandler.GetChildByName(buttonTwoObject, "Text").GetComponent<Text>().text = buttontwotext;
+            buttonTwo.onClick.AddListener(_buttonActiontwo);
+        }
+        else
+        {
+            buttonThreeObject.SetActive(true);
+
+            Button buttonOne = buttonThreeObject.GetComponent<Button>();
+            buttonOne.onClick.RemoveAllListeners();
+            SceneHandler.GetChildByName(buttonThreeObject, "Text").GetComponent<Text>().text = buttononetext;
+            buttonOne.onClick.AddListener(_buttonAction);
+        }
+
+        LoginUIPanels.First(m => m.name == "InfoPanel").SetActive(true);
+    }
+    void HideDialogUI()
+    {
+        LoginUIPanels.First(m => m.name == "InfoPanel").SetActive(false);
+    }
     void Options()
     {
 
@@ -139,6 +211,7 @@ public class LoginUIHandler : MonoBehaviour
     }
     void Login()
     {
+        DisplayDialogUI("Connecting...", "Cancel", "", HideDialogUI);
         // Audio play Sound\Interface\iUIMainMenuButtonA.wav
     }
     void Quit()

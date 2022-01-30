@@ -41,4 +41,17 @@ public class SceneHandler : MonoBehaviour
 
         return true;
     }
+    public static GameObject GetChildByName(GameObject parent, string childName)
+    {
+        Transform[] _Children = parent.transform.GetComponentsInChildren<Transform>(true);
+        foreach (Transform _child in _Children)
+        {
+            if (_child.gameObject.name == childName)
+            {
+                return _child.gameObject;
+            }
+        }
+
+        return null;
+    }
 }
