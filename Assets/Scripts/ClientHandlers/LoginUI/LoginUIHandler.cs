@@ -203,11 +203,11 @@ public class LoginUIHandler : MonoBehaviour
     }
     void AccountManage()
     {
-
+        Application.OpenURL(AppHandler.Instance.MANAGE_ACCOUNT_LINK);
     }
     void Website()
     {
-
+        Application.OpenURL(AppHandler.Instance.WEBSITE_LINK);
     }
     void Login()
     {

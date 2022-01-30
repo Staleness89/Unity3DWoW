@@ -18,6 +18,8 @@ public class AppHandler : MonoBehaviour
     public string LAST_KNOWN_REALMNAME = " ";
     public int LAST_KNOWN_REALM_PORT = 0;
     public string LAST_KNOWN_MPQ_DATA_FOLDER = " ";
+    public string WEBSITE_LINK = " ";
+    public string MANAGE_ACCOUNT_LINK = " ";
 
     public List<MpqArchive> LoadedMPQs;
 
@@ -45,9 +47,10 @@ public class AppHandler : MonoBehaviour
         Instance = this;
 
         REALM_LIST_ADDRESS = "127.0.0.1";
-        LAST_KNOWN_REALMNAME = " ";
         LAST_KNOWN_REALM_PORT = 3724;
         LAST_KNOWN_MPQ_DATA_FOLDER = @Application.dataPath + "/Data/";
+        WEBSITE_LINK = @"https://worldofwarcraft.com/en-us/";
+        MANAGE_ACCOUNT_LINK = @"https://account.battle.net/";
 
         ReadRealmlistFile();
 
@@ -229,7 +232,7 @@ public class AppHandler : MonoBehaviour
 
     public void ReadRealmlistFile()
     {
-        string path = @Application.dataPath + "/realmlist.wtf";
+        string path = @Application.dataPath + "/data.wtf";
         if (!File.Exists(path))
         {
             File.Create(path).Close();
@@ -240,6 +243,8 @@ public class AppHandler : MonoBehaviour
                 w.WriteLine("LAST_KNOWN_REALMNAME " + LAST_KNOWN_REALMNAME);
                 w.WriteLine("LAST_KNOWN_REALM_PORT " + LAST_KNOWN_REALM_PORT.ToString());
                 w.WriteLine("LAST_KNOWN_MPQ_DATA_FOLDER " + LAST_KNOWN_MPQ_DATA_FOLDER);
+                w.WriteLine("WEBSITE_LINK " + WEBSITE_LINK);
+                w.WriteLine("MANAGE_ACCOUNT_LINK " + MANAGE_ACCOUNT_LINK);
             }
         }
 
@@ -263,11 +268,19 @@ public class AppHandler : MonoBehaviour
             {
                 LAST_KNOWN_MPQ_DATA_FOLDER = line.Substring(27);
             }
+            if (line.Contains("WEBSITE_LINK "))
+            {
+                WEBSITE_LINK = line.Substring(13);
+            }
+            if (line.Contains("MANAGE_ACCOUNT_LINK "))
+            {
+                MANAGE_ACCOUNT_LINK = line.Substring(20);
+            }
         }
     }
     public void WriteRealmlistFile()
     {
-        string path = @Application.dataPath + "/realmlist.wtf";
+        string path = @Application.dataPath + "/data.wtf";
         if (!File.Exists(path))
         {
             File.Create(path).Close();
@@ -278,6 +291,8 @@ public class AppHandler : MonoBehaviour
                 w.WriteLine("LAST_KNOWN_REALMNAME " + LAST_KNOWN_REALMNAME);
                 w.WriteLine("LAST_KNOWN_REALM_PORT " + LAST_KNOWN_REALM_PORT.ToString());
                 w.WriteLine("LAST_KNOWN_MPQ_DATA_FOLDER " + LAST_KNOWN_MPQ_DATA_FOLDER);
+                w.WriteLine("WEBSITE_LINK " + WEBSITE_LINK);
+                w.WriteLine("MANAGE_ACCOUNT_LINK " + MANAGE_ACCOUNT_LINK);
             }
         }
         else
@@ -291,6 +306,8 @@ public class AppHandler : MonoBehaviour
                 w.WriteLine("LAST_KNOWN_REALMNAME " + LAST_KNOWN_REALMNAME);
                 w.WriteLine("LAST_KNOWN_REALM_PORT " + LAST_KNOWN_REALM_PORT.ToString());
                 w.WriteLine("LAST_KNOWN_MPQ_DATA_FOLDER " + LAST_KNOWN_MPQ_DATA_FOLDER);
+                w.WriteLine("WEBSITE_LINK " + WEBSITE_LINK);
+                w.WriteLine("MANAGE_ACCOUNT_LINK " + MANAGE_ACCOUNT_LINK);
             }
         }
     }
