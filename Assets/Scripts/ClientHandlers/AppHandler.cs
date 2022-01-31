@@ -10,10 +10,7 @@ public class AppHandler : MonoBehaviour
     public Image _image;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
-
-    public AuthenticationSession _authSession;
-    public WorldSession _worldSession;
-
+    
     public string REALM_LIST_ADDRESS = " ";
     public string LAST_KNOWN_REALMNAME = " ";
     public int LAST_KNOWN_REALM_PORT = 0;
@@ -212,7 +209,6 @@ public class AppHandler : MonoBehaviour
         else
             return null;
     }
-
     void SetPointer(string pointerLocation)
     {
         Texture2D newPointer = null;
@@ -220,16 +216,13 @@ public class AppHandler : MonoBehaviour
         if (loadedCursors.ContainsKey(pointerLocation.ToUpper()))
             newPointer = loadedCursors[pointerLocation.ToUpper()];
         else
-            newPointer = BLPLoader.ToTex(SearchMPQ(pointerLocation));
+        {
+            loadedCursors.Add(pointerLocation.ToUpper(), BLPLoader.ToTex(SearchMPQ(pointerLocation)));
+            newPointer = loadedCursors[pointerLocation.ToUpper()];
+        }
         
         Cursor.SetCursor(newPointer, hotSpot, cursorMode);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ReadRealmlistFile()
     {
         string path = @Application.dataPath + "/data.wtf";
