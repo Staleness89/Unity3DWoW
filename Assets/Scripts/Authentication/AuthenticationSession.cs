@@ -30,7 +30,7 @@ public class AuthenticationSession
     {
         mainNetwork = _mainNetwork;
         mUsername = Username.ToUpper();
-        mPassword = Password.ToUpper(); 
+        mPassword = Password.ToUpper();
 
         LoginUIHandler.LoginUIInstance.DisplayDialogUI("Connecting...", "Cancel", "", CloseAuthAttempt);
 
@@ -230,7 +230,7 @@ public class AuthenticationSession
                 {
                     realms[i].wOnline = 1;
                 }
-                
+
                 if ((realms[i].Flags & 4) != 0)
                 {
                     realms[i].version_major = packetIn.ReadByte();
@@ -243,7 +243,7 @@ public class AuthenticationSession
                 {
                     LastKnownRealm = realms[i];
                 }
-            }            
+            }
         }
 
         catch (Exception ex)
@@ -261,59 +261,6 @@ public class AuthenticationSession
         else
         {
             LoginUIHandler.LoginUIInstance.DisplayRealmUI(realms);
-
-            /*CoreHandler.GetMenuByName(LoginHandler.Instance.UIPanels, "LoginUI").SetActive(false);
-            CoreHandler.GetMenuByName(LoginHandler.Instance.UIPanels, "InfoPanel").SetActive(false);
-            CoreHandler.GetMenuByName(LoginHandler.Instance.UIPanels, "RealmListUI").SetActive(true);
-
-            GameObject contentList = CoreHandler.GetChildByName(CoreHandler.GetMenuByName(LoginHandler.Instance.UIPanels, "RealmListUI"), "realmContent");
-
-            Transform[] ts1 = contentList.GetComponentsInChildren<Transform>(true);
-            foreach (Transform t in ts1)
-            {
-                if (t.gameObject.name == "realmContent")
-                    continue;
-
-                Destroy(t.gameObject);
-            }
-
-            for (int i = 0; i < realms.Length; i++)
-            {
-                Realm newRealm = realms[i];
-
-                GameObject button = Instantiate(LoginHandler.Instance.RealmListPrefab);
-
-                button.transform.SetParent(contentList.transform);
-                button.transform.localScale = LoginHandler.Instance.RealmListPrefab.transform.localScale;
-                button.transform.localPosition = new Vector3(LoginHandler.Instance.RealmListPrefab.transform.localPosition.x, LoginHandler.Instance.RealmListPrefab.transform.localPosition.y, 0);
-                button.transform.localRotation = LoginHandler.Instance.RealmListPrefab.transform.localRotation;
-
-                button.name = i.ToString();
-
-                Transform[] ts = button.transform.GetComponentsInChildren<Transform>(true);
-                foreach (Transform t in ts)
-                {
-                    if (t.gameObject.name == "RealmRealmName")
-                    {
-                        t.gameObject.GetComponent<Text>().text = newRealm.Name;
-                    }
-                    if (t.gameObject.name == "RealmType")
-                    {
-                        t.gameObject.GetComponent<Text>().text = newRealm.Type.ToString();
-                    }
-                    if (t.gameObject.name == "RealmCharacters")
-                    {
-                        t.gameObject.GetComponent<Text>().text = newRealm.NumChars.ToString();
-                    }
-                    if (t.gameObject.name == "RealmPopulation")
-                    {
-                        t.gameObject.GetComponent<Text>().text = newRealm.Population.ToString();
-                    }
-                }
-
-                button.GetComponentInChildren<Button>().onClick.AddListener(() => SelectRealm(newRealm));
-                button.gameObject.SetActive(true);
-            }*/
         }
     }
     private bool CheckAvailableServerPort(string port)
