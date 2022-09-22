@@ -1,10 +1,10 @@
 # Unity3DWoW
 
-A simple client made with Unity3D for trinitycore and mangos 1.12.1 servers.
+Reads directly from Blizzards MPQs so these ARE required from patch 3.3.5a.
 
-![Screenshot](screenshot.jpg)
-![Screenshot](screenshot2.jpg)
-![Screenshot](screenshot3.jpg)
-![Screenshot](screenshot4.jpg)
-![Screenshot](screenshot5.jpg)
-![Screenshot](screenshot6.jpg)
+A simple client made with Unity3D for trinitycore and mangos 3.3.5 servers.
+
+This project uses trademarked images/audio/models all rights go to Blizzard entertainment.
+
+
+![ScreenShot](https://raw.githubusercontent.com/caffeine239/Unity3DWoW/master/Screenshot01.png)
